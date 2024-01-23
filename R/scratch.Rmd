@@ -1,0 +1,108 @@
+
+```{r setup}
+library(parsermd)
+library(tidyverse)
+```
+
+# Funções
+
+```{r}
+eliminar_yaml <- function(df) {
+  
+  df %>% 
+    filter(type != 'rmd_yaml_list')
+  
+}
+
+processar_um_bloco <- function(ast) {
+  
+  # Apagar latex = 1
+  # .rmdnote -> .callout-note
+  # .rmdcaution -> .callout-caution
+  # .rmdimportant -> .callout-important
+  # .rmdwarning -> .callout-warning
+
+  texto <- ast %>% 
+    rmd_node_content() %>% 
+    str_split('\n')         
+  
+  # str_split retorna lista! Pegar elemento único e processar:
+  texto[[1]] %>%   
+    str_replace('[[:blank:]]*latex=1[[:blank:]]*', '') %>%
+    str_replace('\\.rmd', '.callout-') %>%
+    paste0(collapse = '\n') %>% 
+    parse_rmd(allow_incomplete = TRUE, parse_yaml = FALSE) %>% 
+    as_tibble() %>% 
+    # O bloco YAML sempre está presente, mesmo vazio. Eliminar:
+    filter(type == 'rmd_markdown') %>%
+    pull(ast) %>% 
+    list()
+  
+}
+
+processar_callouts <- function(df) {
+
+  for (i in 1:nrow(df)) {
+    if (df[i, 'type'] == 'rmd_markdown') {
+      df[i, 'ast'] <- processar_um_bloco(df[i, 'ast'])
+    }
+  }
+  
+  df
+
+}
+```
+
+
+
+# Ler
+
+```{r}
+index <- parse_rmd('../index.Rmd')
+index
+```
+
+```{r}
+index_df <- index %>% as_tibble() 
+index_df%>% glimpse()
+```
+
+
+# Eliminar yaml
+
+```{r}
+index_df %>% 
+  pull(type)
+```
+
+```{r}
+sem_yaml <- index_df %>% 
+  eliminar_yaml()
+
+sem_yaml
+```
+
+
+# Headings ficam como estão
+
+???
+
+
+# Processar markdown
+
+## Processar call-outs
+
+* Como headings dentro de um call-out são considerados headings pelo parser, mudar apenas a linha com ":::" seguido de alguma coisa não-branca.
+
+```{r}
+com_callouts <- sem_yaml %>% 
+  processar_callouts()
+```
+
+```{r}
+com_callouts %>% 
+  as_document() %>% 
+  paste0(collapse = '\n') %>% 
+  cat()
+```
+

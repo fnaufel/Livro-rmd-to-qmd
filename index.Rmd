@@ -1,0 +1,106 @@
+---
+# See https://github.com/fnaufel/bookdowntemplate01 for more information.
+
+knit: "bookdown::render_book"
+
+title: "Probabilidade e Estatística com R"
+description: "Probabilidade e Estatística com R"
+author: "Fernando Náufel"
+date: "(versão de `r format(Sys.Date(), '%d/%m/%Y')`)"
+lang: 'pt-br'
+
+cover-image: "images/640px-Nightingale-mortality.jpg"
+
+documentclass: "report"
+classoption: '11pt'
+geometry: 'margin=1in'
+bibliography: ['bibliography.bib', 'packages.bib']
+link-citations: yes
+---
+
+
+# Apresentação {- #apresentacao}
+
+::: {.rmdcaution latex=1}
+
+**Atenção**
+
+Este material ainda está em construção.
+
+Pode haver mudanças a qualquer momento.
+
+Verifique, no rodapé da página *web* ou na capa do arquivo pdf, a data desta versão.
+:::
+
+```{r echo=FALSE, results='asis'}
+if (is_html_output()) {
+  cat('<div style=\'height: 100px\'></div>')
+} else {
+  cat('\\newpage\n')
+}
+```
+
+
+![](images/640px-Nightingale-mortality.jpg){.center}
+
+```{r echo=FALSE, results='asis'}
+if (is_html_output()) {
+  cat('<div style=\'height: 100px\'></div>')
+} else {
+  cat('\\vspace{2cm}\n')
+}
+```
+
+
+Este livro/*site* foi iniciado em 2020, durante a pandemia de COVID-19, quando a Universidade Federal Fluminense (UFF) funcionou em regime de ensino remoto durante mais de um ano. 
+
+Para atender os alunos do curso de Probabilidade e Estatística do curso de graduação em Ciência da Computação da UFF, decidi gravar aulas em vídeo e disponibilizar os arquivos usados nelas. Foram esses arquivos que deram origem a este livro/*site*.
+
+Este livro/*site* foi construído para pessoas que já saibam programar, embora não necessariamente em R.
+
+Para tirar o máximo proveito deste material, você deve fazer o seguinte:
+
+1. Assistir aos vídeos contidos em cada capítulo. A *playlist* completa está em https://www.youtube.com/playlist?list=PL7SRLwLs7ocaV-Y1vrVU3W7mZnnS0qkWV.
+
+1. Instalar o R no seu computador ou abrir uma conta no RStudio Cloud, para poder usar o R *online*. Você encontra instruções para fazer isto no [capítulo de introdução a R](#rintro).
+
+1. Baixar, [neste repositório do Github](https://github.com/fnaufel/probestr), o código-fonte deste livro/*site*, para poder rodar e alterar os exemplos.
+
+1. Seguir os *links* para outras fontes *online* que abordam assuntos que não são cobertos em detalhes neste curso.
+
+1. Fazer os exercícios. Ao longo do tempo, acrescentarei *links* para vídeos explicando as soluções.
+
+::: {.rmdimportant latex=1}
+
+[Se você estiver lendo este material na *web*, você pode clicar nos comandos e funções que aparecem nos blocos de código em R]{.hl} para abrir páginas da documentação sobre eles.
+
+Se você preferir ler este livro em pdf, ou se quiser imprimi-lo, [faça o *download* do arquivo aqui](https://github.com/fnaufel/probestr/blob/master/docs/probestr.pdf).
+
+:::
+
+
+## Referências recomendadas {- #refrec}
+
+### Em português {-}
+
+* Sillas Gonzaga, *Introdução a R para Visualização e Apresentação de Dados*,
+http://sillasgonzaga.com/material/curso_visualizacao/index.html
+
+* Allan Vieira de Castro Quadros, *Introdução à Análise de Dados em R utilizando Tidyverse*, https://allanvc.github.io/book_IADR-T/
+
+* Paulo Felipe de Oliveira, Saulo Guerra, Robert McDonnel, *Ciência de Dados com R – Introdução*, https://cdr.ibpad.com.br/index.html
+
+* Curso R, *Ciência de Dados em R*, https://livro.curso-r.com/
+
+
+### Em inglês {-}
+
+* Garrett Grolemund, Hadley Wickham, *R for Data Science*, https://r4ds.had.co.nz/
+
+* Chester Ismay, Albert Y. Kim, *A ModernDive into R and the Tidyverse*, https://moderndive.com/
+
+
+## Exercício {-}
+
+1. Pesquise sobre a imagem do início deste capítulo. Ela foi criada em 1858 por Florence Nightingale.
+
