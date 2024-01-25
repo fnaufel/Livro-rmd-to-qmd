@@ -1,0 +1,3358 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{3}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+% Soul package to handle highlighting (see hl.py3 filter)
+\usepackage{soul}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Índice}
+\else
+  \newcommand\contentsname{Índice}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Lista de Figuras}
+\else
+  \newcommand\listfigurename{Lista de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Lista de Tabelas}
+\else
+  \newcommand\listtablename{Lista de Tabelas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabela}
+\else
+  \newcommand\tablename{Tabela}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listagem}
+\newcommand*\listoflistings{\listof{codelisting}{Lista de Listagens}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{portuguese}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Teste},
+  pdfauthor={Fernando Náufel},
+  pdflang={pt},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Teste}
+\author{Fernando Náufel}
+\date{25/01/2024 18:40}
+
+\begin{document}
+\maketitle
+
+% Bold title in callout boxes
+\tcbset{fonttitle=\bfseries}
+
+\renewcommand*\contentsname{Índice}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\bookmarksetup{startatroot}
+
+\chapter*{Apresentação}\label{apresentacao}
+\addcontentsline{toc}{chapter}{Apresentação}
+
+\markboth{Apresentação}{Apresentação}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-caution-color!10!white, title=\textcolor{quarto-callout-caution-color}{\faFire}\hspace{0.5em}{Cuidado}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-caution-color-frame]
+
+Este material ainda está em construção.
+
+Pode haver mudanças a qualquer momento.
+
+Verifique, no rodapé da página \emph{web} ou na capa do arquivo pdf, a
+data desta versão.
+
+\end{tcolorbox}
+
+\includegraphics{images/640px-Nightingale-mortality.jpg}
+
+Este livro/\emph{site} foi iniciado em 2020, durante a pandemia de
+COVID-19, quando a Universidade Federal Fluminense (UFF) funcionou em
+regime de ensino remoto durante mais de um ano.
+
+Para atender os alunos do curso de Probabilidade e Estatística do curso
+de graduação em Ciência da Computação da UFF, decidi gravar aulas em
+vídeo e disponibilizar os arquivos usados nelas. Foram esses arquivos
+que deram origem a este livro/\emph{site}.
+
+Este livro/\emph{site} foi construído para pessoas que já saibam
+programar, embora não necessariamente em R.
+
+Para tirar o máximo proveito deste material, você deve fazer o seguinte:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Assistir aos vídeos contidos em cada capítulo. A \emph{playlist}
+  completa está em
+  https://www.youtube.com/playlist?list=PL7SRLwLs7ocaV-Y1vrVU3W7mZnnS0qkWV.
+\item
+  Instalar o R no seu computador ou abrir uma conta no RStudio Cloud,
+  para poder usar o R \emph{online}. Você encontra instruções para fazer
+  isto no \hyperref[rintro]{capítulo de introdução a R}.
+\item
+  Baixar, \href{https://github.com/fnaufel/probestr}{neste repositório
+  do Github}, o código-fonte deste livro/\emph{site}, para poder rodar e
+  alterar os exemplos.
+\item
+  Seguir os \emph{links} para outras fontes \emph{online} que abordam
+  assuntos que não são cobertos em detalhes neste curso.
+\item
+  Fazer os exercícios. Ao longo do tempo, acrescentarei \emph{links}
+  para vídeos explicando as soluções.
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Importante}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-important-color-frame]
+
+{\hl{Se você estiver lendo este material na \emph{web}, você pode clicar
+nos comandos e funções que aparecem nos blocos de código em R}} para
+abrir páginas da documentação sobre eles.
+
+Se você preferir ler este livro em pdf, ou se quiser imprimi-lo,
+\href{https://github.com/fnaufel/probestr/blob/master/docs/probestr.pdf}{faça
+o \emph{download} do arquivo aqui}.
+
+\end{tcolorbox}
+
+\section*{Referências recomendadas}\label{refrec}
+\addcontentsline{toc}{section}{Referências recomendadas}
+
+\markright{Referências recomendadas}
+
+\subsection*{Em português}\label{em-portuguuxeas}
+\addcontentsline{toc}{subsection}{Em português}
+
+\begin{itemize}
+\item
+  Sillas Gonzaga, \emph{Introdução a R para Visualização e Apresentação
+  de Dados},
+  http://sillasgonzaga.com/material/curso\_visualizacao/index.html
+\item
+  Allan Vieira de Castro Quadros, \emph{Introdução à Análise de Dados em
+  R utilizando Tidyverse}, https://allanvc.github.io/book\_IADR-T/
+\item
+  Paulo Felipe de Oliveira, Saulo Guerra, Robert McDonnel, \emph{Ciência
+  de Dados com R -- Introdução}, https://cdr.ibpad.com.br/index.html
+\item
+  Curso R, \emph{Ciência de Dados em R}, https://livro.curso-r.com/
+\end{itemize}
+
+\subsection*{Em inglês}\label{em-ingluxeas}
+\addcontentsline{toc}{subsection}{Em inglês}
+
+\begin{itemize}
+\item
+  Garrett Grolemund, Hadley Wickham, \emph{R for Data Science},
+  https://r4ds.had.co.nz/
+\item
+  Chester Ismay, Albert Y. Kim, \emph{A ModernDive into R and the
+  Tidyverse}, https://moderndive.com/
+\end{itemize}
+
+\section*{Exercício}\label{exercuxedcio}
+\addcontentsline{toc}{section}{Exercício}
+
+\markright{Exercício}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Pesquise sobre a imagem do início deste capítulo. Ela foi criada em
+  1858 por Florence Nightingale.
+\end{enumerate}
+
+\bookmarksetup{startatroot}
+
+\chapter{\texorpdfstring{Introdução ao
+\texttt{tidyverse}}{Introdução ao tidyverse}}\label{introduuxe7uxe3o-ao-tidyverse}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Dica}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+Busque mais informações sobre os pacotes que compõem o
+\texttt{tidyverse} \hyperref[refrec]{nas referências recomendadas}.
+
+\end{tcolorbox}
+
+\section{\texorpdfstring{Criando uma
+\emph{tibble}}{Criando uma tibble}}\label{criando-uma-tibble}
+
+\begin{itemize}
+\item
+  Uma \emph{tibble} é uma tabela retangular.
+\item
+  {\hl{Cada coluna é um vetor}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{pessoa =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}João\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Maria\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Pedro\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Ana\textquotesingle{}}\NormalTok{),}
+  \StringTok{\textquotesingle{}cor favorita\textquotesingle{}} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}azul\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}rosa\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}preto\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}branco\textquotesingle{}}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 2
+  pessoa `cor favorita`
+  <chr>  <chr>         
+1 João   azul          
+2 Maria  rosa          
+3 Pedro  preto         
+4 Ana    branco        
+\end{verbatim}
+\item
+  Isto é um pouco diferente da maneira como estamos acostumados a ver
+  tabelas (como uma coleção de linhas, em vez de uma coleção de
+  colunas).
+\item
+  A função \texttt{tribble} permite a entrada de forma mais natural,
+  linha a linha. {\hl{Lembre-se de usar
+  {\mbox{\texttt{\textasciitilde{}}}} antes dos nomes das colunas.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{pessoa, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textquotesingle{}cor favorita\textquotesingle{}}\NormalTok{,}
+   \StringTok{"João"}\NormalTok{,          }\StringTok{"azul"}\NormalTok{,}
+  \StringTok{"Maria"}\NormalTok{,          }\StringTok{"rosa"}\NormalTok{,}
+  \StringTok{"Pedro"}\NormalTok{,         }\StringTok{"preto"}\NormalTok{,}
+    \StringTok{"Ana"}\NormalTok{,        }\StringTok{"branco"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 2
+  pessoa `cor favorita`
+  <chr>  <chr>         
+1 João   azul          
+2 Maria  rosa          
+3 Pedro  preto         
+4 Ana    branco        
+\end{verbatim}
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-caution-color!10!white, title=\textcolor{quarto-callout-caution-color}{\faFire}\hspace{0.5em}{Cuidado}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-caution-color-frame]
+
+  Mesmo que você crie uma \emph{tibble} linha a linha, o R vai continuar
+  tratando sua \emph{tibble} como uma coleção de colunas.
+
+  É importante lembrar disto para entender a forma como R manipula estas
+  tabelas.
+
+  \end{tcolorbox}
+\item
+  Se uma coluna não puder ser armazenada em um vetor, a coluna será uma
+  lista (com vetores como elementos):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{pessoa =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}João\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Maria\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Pedro\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Ana\textquotesingle{}}\NormalTok{),}
+  \StringTok{\textquotesingle{}cor favorita\textquotesingle{}} \OtherTok{=} \FunctionTok{list}\NormalTok{(}
+    \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}azul\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}roxo\textquotesingle{}}\NormalTok{),}
+    \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}rosa\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}magenta\textquotesingle{}}\NormalTok{),}
+    \ConstantTok{NA}\NormalTok{,}
+    \StringTok{\textquotesingle{}branco\textquotesingle{}}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 2
+  pessoa `cor favorita`
+  <chr>  <list>        
+1 João   <chr [2]>     
+2 Maria  <chr [2]>     
+3 Pedro  <lgl [1]>     
+4 Ana    <chr [1]>     
+\end{verbatim}
+\item
+  Use \texttt{View()} para examinar interativamente o conteúdo de uma
+  coluna-lista:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{View}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\section{\texorpdfstring{Operador de \emph{pipe}
+(\texttt{\%\textgreater{}\%})}{Operador de pipe (\%\textgreater\%)}}\label{operador-de-pipe}
+
+\begin{itemize}
+\tightlist
+\item
+  O \texttt{tidyverse} inclui o pacote \texttt{magrittr}, que contém o
+  operador \texttt{\%\textgreater{}\%}, chamado \emph{pipe}.\footnote{Por
+    que o nome do pacote e o nome do operador formam um trocadilho?}
+\end{itemize}
+
+\begin{itemize}
+\item
+  A idéia é facilitar a leitura de {\hl{composições de funções}}. O
+  código
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{h}\NormalTok{(}\FunctionTok{g}\NormalTok{(}\FunctionTok{f}\NormalTok{(x)))}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+  pode ser escrito como
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{f}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{g}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{h}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+\item
+  Esta segunda versão é mais fiel à ordem em que as operações acontecem.
+\item
+  Na verdade, R tem um operador de {\hl{atribuição para a direita}}, mas
+  poucas pessoas recomendam usá-lo:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{f}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{g}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{h}\NormalTok{() }\OtherTok{{-}\textgreater{}}\NormalTok{ y}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+\item
+  Se \texttt{f}, \texttt{g} e \texttt{h} forem funções de um argumento
+  só, os parênteses podem ser omitidos:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ f }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ g }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ h}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+\item
+  Se a função \texttt{f} tiver outros argumentos, escreva-os normalmente
+  na chamada a \texttt{f}:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mean}\NormalTok{(}\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+\item
+  O \emph{pipe} \texttt{EXP\ \%\textgreater{}\%\ f(...)} sempre insere o
+  resultado da expressão \texttt{EXP} como o {\hl{primeiro argumento da
+  função {\mbox{\texttt{f}}}}}.
+\item
+  Se você precisar que o resultado da expressão \texttt{EXP} seja
+  inserido em outra posição na lista de argumentos de \texttt{f}, use um
+  ponto ``\texttt{.}'' para isso:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{consultar}\NormalTok{(df, .)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+  equivale a
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{consultar}\NormalTok{(df, x)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+\end{itemize}
+
+\section{\texorpdfstring{Formato
+\emph{tidy}}{Formato tidy}}\label{formato-tidy}
+
+\begin{itemize}
+\item
+  Nossa última versão da \emph{tibble} \texttt{cores} é um pouco mais
+  complexa do que deveria ser:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 2
+  pessoa `cor favorita`
+  <chr>  <list>        
+1 João   <chr [2]>     
+2 Maria  <chr [2]>     
+3 Pedro  <lgl [1]>     
+4 Ana    <chr [1]>     
+\end{verbatim}
+\item
+  O formato \emph{tidy} exige que
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+    {\hl{Cada linha}} da \emph{tibble} corresponda a uma
+    {\hl{observação}} sobre um indivíduo,
+  \item
+    {\hl{Cada coluna}} corresponda a {\hl{uma variável observada}}, e
+  \item
+    {\hl{Cada célula}} contenha {\hl{um valor}} da variável.
+  \end{enumerate}
+\item
+  Na \emph{tibble} \texttt{cores}, a primeira e a segunda exigências são
+  satisfeitas, mas a terceira não, pois algumas células contém valores
+  múltiplos.
+\item
+  A \emph{tibble} não está no formato \emph{tidy}.
+\item
+  Podemos ``extrair'' estes vetores ``aninhados'' usando o comando
+  \texttt{unnest}, do pacote \texttt{tidyr}:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores }\OtherTok{\textless{}{-}}\NormalTok{ cores }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unnest}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{cor favorita}\StringTok{\textasciigrave{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cores}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 2
+  pessoa `cor favorita`
+  <chr>  <chr>         
+1 João   azul          
+2 João   roxo          
+3 Maria  rosa          
+4 Maria  magenta       
+5 Pedro  <NA>          
+6 Ana    branco        
+\end{verbatim}
+\item
+  {\hl{A maioria das funções do {\mbox{\texttt{tidyverse}}} exige que as
+  \emph{tibbles} estejam neste formato \emph{tidy}.}}
+\item
+  Um exemplo mais complexo é o \emph{dataset} \texttt{billboard}, com as
+  seguintes colunas (para cada música que estava no \emph{top 100} da
+  Billboard no ano de $2000$):
+
+  \begin{itemize}
+  \item
+    Nome do artista ou banda;
+  \item
+    Nome da música;
+  \item
+    Data em que a música entrou no \emph{top 100} da Billboard;
+  \item
+    Para cada uma das $76$ semanas seguintes, a posição da música no
+    \emph{top 100}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{billboard }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 317
+Columns: 79
+$ artist       <chr> "2 Pac", "2Ge+her", "3 Doors Down", "3 Doors D~
+$ track        <chr> "Baby Don't Cry (Keep...", "The Hardest Part O~
+$ date.entered <date> 2000-02-26, 2000-09-02, 2000-04-08, 2000-10-2~
+$ wk1          <dbl> 87, 91, 81, 76, 57, 51, 97, 84, 59, 76, 84, 57~
+$ wk2          <dbl> 82, 87, 70, 76, 34, 39, 97, 62, 53, 76, 84, 47~
+$ wk3          <dbl> 72, 92, 68, 72, 25, 34, 96, 51, 38, 74, 75, 45~
+$ wk4          <dbl> 77, NA, 67, 69, 17, 26, 95, 41, 28, 69, 73, 29~
+$ wk5          <dbl> 87, NA, 66, 67, 17, 26, 100, 38, 21, 68, 73, 2~
+$ wk6          <dbl> 94, NA, 57, 65, 31, 19, NA, 35, 18, 67, 69, 18~
+$ wk7          <dbl> 99, NA, 54, 55, 36, 2, NA, 35, 16, 61, 68, 11,~
+$ wk8          <dbl> NA, NA, 53, 59, 49, 2, NA, 38, 14, 58, 65, 9, ~
+$ wk9          <dbl> NA, NA, 51, 62, 53, 3, NA, 38, 12, 57, 73, 9, ~
+$ wk10         <dbl> NA, NA, 51, 61, 57, 6, NA, 36, 10, 59, 83, 11,~
+$ wk11         <dbl> NA, NA, 51, 61, 64, 7, NA, 37, 9, 66, 92, 1, 1~
+$ wk12         <dbl> NA, NA, 51, 59, 70, 22, NA, 37, 8, 68, NA, 1, ~
+$ wk13         <dbl> NA, NA, 47, 61, 75, 29, NA, 38, 6, 61, NA, 1, ~
+$ wk14         <dbl> NA, NA, 44, 66, 76, 36, NA, 49, 1, 67, NA, 1, ~
+$ wk15         <dbl> NA, NA, 38, 72, 78, 47, NA, 61, 2, 59, NA, 4, ~
+$ wk16         <dbl> NA, NA, 28, 76, 85, 67, NA, 63, 2, 63, NA, 8, ~
+$ wk17         <dbl> NA, NA, 22, 75, 92, 66, NA, 62, 2, 67, NA, 12,~
+$ wk18         <dbl> NA, NA, 18, 67, 96, 84, NA, 67, 2, 71, NA, 22,~
+$ wk19         <dbl> NA, NA, 18, 73, NA, 93, NA, 83, 3, 79, NA, 23,~
+$ wk20         <dbl> NA, NA, 14, 70, NA, 94, NA, 86, 4, 89, NA, 43,~
+$ wk21         <dbl> NA, NA, 12, NA, NA, NA, NA, NA, 5, NA, NA, 44,~
+$ wk22         <dbl> NA, NA, 7, NA, NA, NA, NA, NA, 5, NA, NA, NA, ~
+$ wk23         <dbl> NA, NA, 6, NA, NA, NA, NA, NA, 6, NA, NA, NA, ~
+$ wk24         <dbl> NA, NA, 6, NA, NA, NA, NA, NA, 9, NA, NA, NA, ~
+$ wk25         <dbl> NA, NA, 6, NA, NA, NA, NA, NA, 13, NA, NA, NA,~
+$ wk26         <dbl> NA, NA, 5, NA, NA, NA, NA, NA, 14, NA, NA, NA,~
+$ wk27         <dbl> NA, NA, 5, NA, NA, NA, NA, NA, 16, NA, NA, NA,~
+$ wk28         <dbl> NA, NA, 4, NA, NA, NA, NA, NA, 23, NA, NA, NA,~
+$ wk29         <dbl> NA, NA, 4, NA, NA, NA, NA, NA, 22, NA, NA, NA,~
+$ wk30         <dbl> NA, NA, 4, NA, NA, NA, NA, NA, 33, NA, NA, NA,~
+$ wk31         <dbl> NA, NA, 4, NA, NA, NA, NA, NA, 36, NA, NA, NA,~
+$ wk32         <dbl> NA, NA, 3, NA, NA, NA, NA, NA, 43, NA, NA, NA,~
+$ wk33         <dbl> NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk34         <dbl> NA, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk35         <dbl> NA, NA, 4, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk36         <dbl> NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk37         <dbl> NA, NA, 5, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk38         <dbl> NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk39         <dbl> NA, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ wk40         <dbl> NA, NA, 15, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk41         <dbl> NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk42         <dbl> NA, NA, 13, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk43         <dbl> NA, NA, 14, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk44         <dbl> NA, NA, 16, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk45         <dbl> NA, NA, 17, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk46         <dbl> NA, NA, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk47         <dbl> NA, NA, 22, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk48         <dbl> NA, NA, 24, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk49         <dbl> NA, NA, 28, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk50         <dbl> NA, NA, 33, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk51         <dbl> NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk52         <dbl> NA, NA, 42, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk53         <dbl> NA, NA, 49, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk54         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk55         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk56         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk57         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk58         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk59         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk60         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk61         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk62         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk63         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk64         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk65         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk66         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk67         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk68         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk69         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk70         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk71         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk72         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk73         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk74         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk75         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ wk76         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+\end{verbatim}
+  \end{itemize}
+\item
+  Vamos renomear as colunas:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb }\OtherTok{\textless{}{-}}\NormalTok{ billboard }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{artista =}\NormalTok{ artist,}
+    \AttributeTok{musica =}\NormalTok{ track,}
+    \AttributeTok{entrou =}\NormalTok{ date.entered}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 79
+  artista musica entrou       wk1   wk2   wk3   wk4   wk5   wk6   wk7
+  <chr>   <chr>  <date>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+1 2 Pac   Baby ~ 2000-02-26    87    82    72    77    87    94    99
+2 2Ge+her The H~ 2000-09-02    91    87    92    NA    NA    NA    NA
+3 3 Door~ Krypt~ 2000-04-08    81    70    68    67    66    57    54
+4 3 Door~ Loser  2000-10-21    76    76    72    69    67    65    55
+5 504 Bo~ Wobbl~ 2000-04-15    57    34    25    17    17    31    36
+6 98^0    Give ~ 2000-08-19    51    39    34    26    26    19     2
+# i 69 more variables: wk8 <dbl>, wk9 <dbl>, wk10 <dbl>, wk11 <dbl>,
+#   wk12 <dbl>, wk13 <dbl>, wk14 <dbl>, wk15 <dbl>, wk16 <dbl>,
+#   wk17 <dbl>, wk18 <dbl>, wk19 <dbl>, wk20 <dbl>, wk21 <dbl>,
+#   wk22 <dbl>, wk23 <dbl>, wk24 <dbl>, wk25 <dbl>, wk26 <dbl>,
+#   wk27 <dbl>, wk28 <dbl>, wk29 <dbl>, wk30 <dbl>, wk31 <dbl>,
+#   wk32 <dbl>, wk33 <dbl>, wk34 <dbl>, wk35 <dbl>, wk36 <dbl>,
+#   wk37 <dbl>, wk38 <dbl>, wk39 <dbl>, wk40 <dbl>, wk41 <dbl>, ...
+\end{verbatim}
+\item
+  {\hl{O que é uma observação}} neste conjunto de dados?
+
+  {\hl{A posição, em uma semana, de uma música}} que esteve no
+  \emph{top} $100$ da \emph{Billboard} durante o ano \emph{2000}.
+\item
+  {\hl{Quais são as variáveis}} que qualificam cada observação?
+
+  \begin{itemize}
+  \item
+    O artista,
+  \item
+    O título da música,
+  \item
+    A posiçao da música no \emph{top} $100$ da \emph{Billboard} em cada
+    uma das $76$ semanas depois que ela entrou na lista.
+  \end{itemize}
+\item
+  Este último item é complexo, e o criador da \emph{tibble} decidiu
+  criar uma coluna por semana.
+\item
+  {\hl{Uma decisão ruim, pois existe informação embutida nos nomes das
+  colunas.}} A coluna \texttt{wk68} corresponde à posição da música na
+  semana $68$ após ela entrar na lista, {\hl{mas o número da semana só
+  aparece no nome da coluna}}!
+\item
+  Isto {\hl{nunca}} deve acontecer. {\hl{A informação deve sempre estar
+  nas células.}}
+\item
+  Vamos simplificar as coisas criando duas colunas:
+
+  \begin{itemize}
+  \item
+    \texttt{semana}, com o número da semana; perceba que esta informação
+    vem dos nomes das colunas,
+  \item
+    \texttt{pos}, com a posição da música naquela semana; esta
+    informação vem das células.
+  \end{itemize}
+\item
+  A \emph{tibble}, que antes era larga, {\hl{vai ser mais estreita e
+  mais longa}}.
+\item
+  A função \texttt{pivot\_longer}, do pacote \texttt{tidyr}, vai fazer o
+  trabalho --- inclusive extraindo os números das semanas dos nomes das
+  colunas:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\OtherTok{\textless{}{-}}\NormalTok{ bb }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+\NormalTok{    wk1}\SpecialCharTok{:}\NormalTok{wk76,}
+    \AttributeTok{names\_to =} \StringTok{\textquotesingle{}semana\textquotesingle{}}\NormalTok{,}
+    \AttributeTok{names\_prefix =} \StringTok{\textquotesingle{}wk\textquotesingle{}}\NormalTok{,}
+    \AttributeTok{names\_transform =} \FunctionTok{list}\NormalTok{(}
+      \AttributeTok{semana =}\NormalTok{ as.integer}
+\NormalTok{    ),}
+    \AttributeTok{values\_to =} \StringTok{\textquotesingle{}pos\textquotesingle{}}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 24.092 x 5
+  artista musica                  entrou     semana   pos
+  <chr>   <chr>                   <date>      <int> <dbl>
+1 2 Pac   Baby Don't Cry (Keep... 2000-02-26      1    87
+2 2 Pac   Baby Don't Cry (Keep... 2000-02-26      2    82
+3 2 Pac   Baby Don't Cry (Keep... 2000-02-26      3    72
+4 2 Pac   Baby Don't Cry (Keep... 2000-02-26      4    77
+5 2 Pac   Baby Don't Cry (Keep... 2000-02-26      5    87
+6 2 Pac   Baby Don't Cry (Keep... 2000-02-26      6    94
+# i 24.086 more rows
+\end{verbatim}
+\item
+  O R só mostra, por \emph{default}, as $1000$ primeiras linhas de uma
+  \emph{tibble}.
+\item
+  Na verdade, o número de linhas da tabela original era
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+[1] 317
+\end{verbatim}
+
+  ::: :::
+\item
+  O número de linhas, depois de \texttt{pivot\_longer}, ficou:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+[1] 24092
+\end{verbatim}
+
+  ::: :::
+\item
+  Existem linhas onde \texttt{pos} tem o valor \texttt{NA}. São
+  resultado da organização original dos dados, onde o \texttt{NA}
+  indicava que a música não estava no \emph{top} $100$ naquela semana.
+\item
+  No novo formato, a ausência da linha com aquele número de semana já
+  basta para indicar isto. Então, vamos eliminar as linhas onde
+  \texttt{pos} é \texttt{NA}.
+\item
+  A função \texttt{filter} {\hl{mantém}} as linhas que {\hl{satisfazem}}
+  a condição dada; por isso, a condição é ``\texttt{pos} não é
+  \texttt{NA}'':
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\OtherTok{\textless{}{-}}\NormalTok{ bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pos))}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5.307 x 5
+  artista musica                  entrou     semana   pos
+  <chr>   <chr>                   <date>      <int> <dbl>
+1 2 Pac   Baby Don't Cry (Keep... 2000-02-26      1    87
+2 2 Pac   Baby Don't Cry (Keep... 2000-02-26      2    82
+3 2 Pac   Baby Don't Cry (Keep... 2000-02-26      3    72
+4 2 Pac   Baby Don't Cry (Keep... 2000-02-26      4    77
+5 2 Pac   Baby Don't Cry (Keep... 2000-02-26      5    87
+6 2 Pac   Baby Don't Cry (Keep... 2000-02-26      6    94
+# i 5.301 more rows
+\end{verbatim}
+\item
+  O número de linhas ficou
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+[1] 5307
+\end{verbatim}
+
+  ::: :::
+\end{itemize}
+
+\subsection{Exercícios}\label{exercuxedcios}
+
+\begin{itemize}
+\item
+  Todas as semanas deste conjunto de dados são do ano $2000$?
+\item
+  Qual é o tipo do {\hl{primeiro}} argumento da função
+  \texttt{filter()}?
+\end{itemize}
+
+\section{Manipulando os dados}\label{manipulando-os-dados}
+
+\subsection{\texorpdfstring{Criando novas colunas: \texttt{mutate},
+\texttt{transmute}}{Criando novas colunas: mutate, transmute}}\label{criando-novas-colunas-mutate-transmute}
+
+\begin{itemize}
+\item
+  O \emph{data frame}\footnote{Considere \emph{data frame} como sinônimo
+    de \emph{tibble}. Na verdade, \emph{tibbles} formam um superconjunto
+    de \emph{data frames}: todo \emph{data frame} é uma \emph{tibble},
+    mas nem toda \emph{tibble} é um \emph{data frame}.} \texttt{cars}
+  tem dados (de $1920$!) sobre as distâncias de frenagem (em pés) de um
+  carro viajando a diversas velocidades (em milhas por hora):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cars}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   speed dist
+1      4    2
+2      4   10
+3      7    4
+4      7   22
+5      8   16
+6      9   10
+7     10   18
+8     10   26
+9     10   34
+10    11   17
+11    11   28
+12    12   14
+13    12   20
+14    12   24
+15    12   28
+16    13   26
+17    13   34
+18    13   34
+19    13   46
+20    14   26
+21    14   36
+22    14   60
+23    14   80
+24    15   20
+25    15   26
+26    15   54
+27    16   32
+28    16   40
+29    17   32
+30    17   40
+31    17   50
+32    18   42
+33    18   56
+34    18   76
+35    18   84
+36    19   36
+37    19   46
+38    19   68
+39    20   32
+40    20   48
+41    20   52
+42    20   56
+43    20   64
+44    22   66
+45    23   54
+46    24   70
+47    24   92
+48    24   93
+49    24  120
+50    25   85
+\end{verbatim}
+\item
+  Vamos criar colunas novas com os valores convertidos para km/h e
+  metros; além disso, uma coluna com a taxa de frenagem:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cars }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{velocidade =}\NormalTok{ speed }\SpecialCharTok{*} \FloatTok{1.6}\NormalTok{,}
+    \AttributeTok{distancia =}\NormalTok{ dist }\SpecialCharTok{*}\NormalTok{ .}\DecValTok{33}\NormalTok{,}
+    \AttributeTok{taxa =}\NormalTok{ velocidade }\SpecialCharTok{/}\NormalTok{ distancia}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   speed dist velocidade distancia      taxa
+1      4    2        6,4      0,66 9,6969697
+2      4   10        6,4      3,30 1,9393939
+3      7    4       11,2      1,32 8,4848485
+4      7   22       11,2      7,26 1,5426997
+5      8   16       12,8      5,28 2,4242424
+6      9   10       14,4      3,30 4,3636364
+7     10   18       16,0      5,94 2,6936027
+8     10   26       16,0      8,58 1,8648019
+9     10   34       16,0     11,22 1,4260250
+10    11   17       17,6      5,61 3,1372549
+11    11   28       17,6      9,24 1,9047619
+12    12   14       19,2      4,62 4,1558442
+13    12   20       19,2      6,60 2,9090909
+14    12   24       19,2      7,92 2,4242424
+15    12   28       19,2      9,24 2,0779221
+16    13   26       20,8      8,58 2,4242424
+17    13   34       20,8     11,22 1,8538324
+18    13   34       20,8     11,22 1,8538324
+19    13   46       20,8     15,18 1,3702240
+20    14   26       22,4      8,58 2,6107226
+21    14   36       22,4     11,88 1,8855219
+22    14   60       22,4     19,80 1,1313131
+23    14   80       22,4     26,40 0,8484848
+24    15   20       24,0      6,60 3,6363636
+25    15   26       24,0      8,58 2,7972028
+26    15   54       24,0     17,82 1,3468013
+27    16   32       25,6     10,56 2,4242424
+28    16   40       25,6     13,20 1,9393939
+29    17   32       27,2     10,56 2,5757576
+30    17   40       27,2     13,20 2,0606061
+31    17   50       27,2     16,50 1,6484848
+32    18   42       28,8     13,86 2,0779221
+33    18   56       28,8     18,48 1,5584416
+34    18   76       28,8     25,08 1,1483254
+35    18   84       28,8     27,72 1,0389610
+36    19   36       30,4     11,88 2,5589226
+37    19   46       30,4     15,18 2,0026350
+38    19   68       30,4     22,44 1,3547237
+39    20   32       32,0     10,56 3,0303030
+40    20   48       32,0     15,84 2,0202020
+41    20   52       32,0     17,16 1,8648019
+42    20   56       32,0     18,48 1,7316017
+43    20   64       32,0     21,12 1,5151515
+44    22   66       35,2     21,78 1,6161616
+45    23   54       36,8     17,82 2,0650954
+46    24   70       38,4     23,10 1,6623377
+47    24   92       38,4     30,36 1,2648221
+48    24   93       38,4     30,69 1,2512219
+49    24  120       38,4     39,60 0,9696970
+50    25   85       40,0     28,05 1,4260250
+\end{verbatim}
+\item
+  Perceba que as colunas antigas continuam lá. {\hl{Se quiser manter
+  apenas as colunas novas, use {\mbox{\texttt{transmute}}}}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cars }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{transmute}\NormalTok{(}
+    \AttributeTok{velocidade =}\NormalTok{ speed }\SpecialCharTok{*} \FloatTok{1.6}\NormalTok{,}
+    \AttributeTok{distancia =}\NormalTok{ dist }\SpecialCharTok{*}\NormalTok{ .}\DecValTok{33}\NormalTok{,}
+    \AttributeTok{taxa =}\NormalTok{ velocidade }\SpecialCharTok{/}\NormalTok{ distancia}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   velocidade distancia      taxa
+1         6,4      0,66 9,6969697
+2         6,4      3,30 1,9393939
+3        11,2      1,32 8,4848485
+4        11,2      7,26 1,5426997
+5        12,8      5,28 2,4242424
+6        14,4      3,30 4,3636364
+7        16,0      5,94 2,6936027
+8        16,0      8,58 1,8648019
+9        16,0     11,22 1,4260250
+10       17,6      5,61 3,1372549
+11       17,6      9,24 1,9047619
+12       19,2      4,62 4,1558442
+13       19,2      6,60 2,9090909
+14       19,2      7,92 2,4242424
+15       19,2      9,24 2,0779221
+16       20,8      8,58 2,4242424
+17       20,8     11,22 1,8538324
+18       20,8     11,22 1,8538324
+19       20,8     15,18 1,3702240
+20       22,4      8,58 2,6107226
+21       22,4     11,88 1,8855219
+22       22,4     19,80 1,1313131
+23       22,4     26,40 0,8484848
+24       24,0      6,60 3,6363636
+25       24,0      8,58 2,7972028
+26       24,0     17,82 1,3468013
+27       25,6     10,56 2,4242424
+28       25,6     13,20 1,9393939
+29       27,2     10,56 2,5757576
+30       27,2     13,20 2,0606061
+31       27,2     16,50 1,6484848
+32       28,8     13,86 2,0779221
+33       28,8     18,48 1,5584416
+34       28,8     25,08 1,1483254
+35       28,8     27,72 1,0389610
+36       30,4     11,88 2,5589226
+37       30,4     15,18 2,0026350
+38       30,4     22,44 1,3547237
+39       32,0     10,56 3,0303030
+40       32,0     15,84 2,0202020
+41       32,0     17,16 1,8648019
+42       32,0     18,48 1,7316017
+43       32,0     21,12 1,5151515
+44       35,2     21,78 1,6161616
+45       36,8     17,82 2,0650954
+46       38,4     23,10 1,6623377
+47       38,4     30,36 1,2648221
+48       38,4     30,69 1,2512219
+49       38,4     39,60 0,9696970
+50       40,0     28,05 1,4260250
+\end{verbatim}
+\item
+  Ou use o argumento \texttt{.keep} de \texttt{mutate} para escolher com
+  mais precisão. Veja a ajuda de \texttt{mutate}.
+\end{itemize}
+
+\subsection{\texorpdfstring{Selecionando colunas: \texttt{select},
+\texttt{distinct},
+\texttt{pull}}{Selecionando colunas: select, distinct, pull}}\label{selecionando-colunas-select-distinct-pull}
+
+\begin{itemize}
+\item
+  Vamos voltar à nossa \emph{tibble} dos \emph{top} $100$ da
+  \emph{Billboard}.
+\item
+  Para ver só a coluna de artistas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(artista)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5.307 x 1
+  artista
+  <chr>  
+1 2 Pac  
+2 2 Pac  
+3 2 Pac  
+4 2 Pac  
+5 2 Pac  
+6 2 Pac  
+# i 5.301 more rows
+\end{verbatim}
+\item
+  Para eliminar as repetições:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(artista) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 228 x 1
+  artista     
+  <chr>       
+1 2 Pac       
+2 2Ge+her     
+3 3 Doors Down
+4 504 Boyz    
+5 98^0        
+6 A*Teens     
+# i 222 more rows
+\end{verbatim}
+\item
+  Para ver artistas e músicas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(artista, musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 317 x 2
+  artista      musica                 
+  <chr>        <chr>                  
+1 2 Pac        Baby Don't Cry (Keep...
+2 2Ge+her      The Hardest Part Of ...
+3 3 Doors Down Kryptonite             
+4 3 Doors Down Loser                  
+5 504 Boyz     Wobble Wobble          
+6 98^0         Give Me Just One Nig...
+# i 311 more rows
+\end{verbatim}
+\item
+  Para especificar colunas {\hl{a não mostrar}}, use o sinal de menos
+  ``\texttt{-}'':
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(entrou, semana, pos))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5.307 x 2
+  artista musica                 
+  <chr>   <chr>                  
+1 2 Pac   Baby Don't Cry (Keep...
+2 2 Pac   Baby Don't Cry (Keep...
+3 2 Pac   Baby Don't Cry (Keep...
+4 2 Pac   Baby Don't Cry (Keep...
+5 2 Pac   Baby Don't Cry (Keep...
+6 2 Pac   Baby Don't Cry (Keep...
+# i 5.301 more rows
+\end{verbatim}
+\item
+  Para {\hl{extrair uma coluna na forma de vetor}} (\texttt{unique} é
+  uma função do R base, aplicável a vetores):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(artista) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unique}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  [1] "2 Pac"                         
+  [2] "2Ge+her"                       
+  [3] "3 Doors Down"                  
+  [4] "504 Boyz"                      
+  [5] "98^0"                          
+  [6] "A*Teens"                       
+  [7] "Aaliyah"                       
+  [8] "Adams, Yolanda"                
+  [9] "Adkins, Trace"                 
+ [10] "Aguilera, Christina"           
+ [11] "Alice Deejay"                  
+ [12] "Allan, Gary"                   
+ [13] "Amber"                         
+ [14] "Anastacia"                     
+ [15] "Anthony, Marc"                 
+ [16] "Avant"                         
+ [17] "BBMak"                         
+ [18] "Backstreet Boys, The"          
+ [19] "Badu, Erkyah"                  
+ [20] "Baha Men"                      
+ [21] "Barenaked Ladies"              
+ [22] "Beenie Man"                    
+ [23] "Before Dark"                   
+ [24] "Bega, Lou"                     
+ [25] "Big Punisher"                  
+ [26] "Black Rob"                     
+ [27] "Black, Clint"                  
+ [28] "Blaque"                        
+ [29] "Blige, Mary J."                
+ [30] "Blink-182"                     
+ [31] "Bloodhound Gang"               
+ [32] "Bon Jovi"                      
+ [33] "Braxton, Toni"                 
+ [34] "Brock, Chad"                   
+ [35] "Brooks & Dunn"                 
+ [36] "Brooks, Garth"                 
+ [37] "Byrd, Tracy"                   
+ [38] "Cagle, Chris"                  
+ [39] "Cam'ron"                       
+ [40] "Carey, Mariah"                 
+ [41] "Carter, Aaron"                 
+ [42] "Carter, Torrey"                
+ [43] "Changing Faces"                
+ [44] "Chesney, Kenny"                
+ [45] "Clark Family Experience"       
+ [46] "Clark, Terri"                  
+ [47] "Common"                        
+ [48] "Counting Crows"                
+ [49] "Creed"                         
+ [50] "Cyrus, Billy Ray"              
+ [51] "D'Angelo"                      
+ [52] "DMX"                           
+ [53] "Da Brat"                       
+ [54] "Davidson, Clay"                
+ [55] "De La Soul"                    
+ [56] "Destiny's Child"               
+ [57] "Diffie, Joe"                   
+ [58] "Dion, Celine"                  
+ [59] "Dixie Chicks, The"             
+ [60] "Dr. Dre"                       
+ [61] "Drama"                         
+ [62] "Dream"                         
+ [63] "Eastsidaz, The"                
+ [64] "Eiffel 65"                     
+ [65] "Elliott, Missy \"Misdemeanor\""
+ [66] "Eminem"                        
+ [67] "En Vogue"                      
+ [68] "Estefan, Gloria"               
+ [69] "Evans, Sara"                   
+ [70] "Eve"                           
+ [71] "Everclear"                     
+ [72] "Fabian, Lara"                  
+ [73] "Fatboy Slim"                   
+ [74] "Filter"                        
+ [75] "Foo Fighters"                  
+ [76] "Fragma"                        
+ [77] "Funkmaster Flex"               
+ [78] "Ghostface Killah"              
+ [79] "Gill, Vince"                   
+ [80] "Gilman, Billy"                 
+ [81] "Ginuwine"                      
+ [82] "Goo Goo Dolls"                 
+ [83] "Gray, Macy"                    
+ [84] "Griggs, Andy"                  
+ [85] "Guy"                           
+ [86] "Hanson"                        
+ [87] "Hart, Beth"                    
+ [88] "Heatherly, Eric"               
+ [89] "Henley, Don"                   
+ [90] "Herndon, Ty"                   
+ [91] "Hill, Faith"                   
+ [92] "Hoku"                          
+ [93] "Hollister, Dave"               
+ [94] "Hot Boys"                      
+ [95] "Houston, Whitney"              
+ [96] "IMx"                           
+ [97] "Ice Cube"                      
+ [98] "Ideal"                         
+ [99] "Iglesias, Enrique"             
+[100] "J-Shin"                        
+[101] "Ja Rule"                       
+[102] "Jackson, Alan"                 
+[103] "Jagged Edge"                   
+[104] "Janet"                         
+[105] "Jay-Z"                         
+[106] "Jean, Wyclef"                  
+[107] "Joe"                           
+[108] "John, Elton"                   
+[109] "Jones, Donell"                 
+[110] "Jordan, Montell"               
+[111] "Juvenile"                      
+[112] "Kandi"                         
+[113] "Keith, Toby"                   
+[114] "Kelis"                         
+[115] "Kenny G"                       
+[116] "Kid Rock"                      
+[117] "Kravitz, Lenny"                
+[118] "Kumbia Kings"                  
+[119] "LFO"                           
+[120] "LL Cool J"                     
+[121] "Larrieux, Amel"                
+[122] "Lawrence, Tracy"               
+[123] "Levert, Gerald"                
+[124] "Lil Bow Wow"                   
+[125] "Lil Wayne"                     
+[126] "Lil' Kim"                      
+[127] "Lil' Mo"                       
+[128] "Lil' Zane"                     
+[129] "Limp Bizkit"                   
+[130] "Lonestar"                      
+[131] "Lopez, Jennifer"               
+[132] "Loveless, Patty"               
+[133] "Lox"                           
+[134] "Lucy Pearl"                    
+[135] "Ludacris"                      
+[136] "M2M"                           
+[137] "Madison Avenue"                
+[138] "Madonna"                       
+[139] "Martin, Ricky"                 
+[140] "Mary Mary"                     
+[141] "Master P"                      
+[142] "McBride, Martina"              
+[143] "McEntire, Reba"                
+[144] "McGraw, Tim"                   
+[145] "McKnight, Brian"               
+[146] "Messina, Jo Dee"               
+[147] "Metallica"                     
+[148] "Montgomery Gentry"             
+[149] "Montgomery, John Michael"      
+[150] "Moore, Chante"                 
+[151] "Moore, Mandy"                  
+[152] "Mumba, Samantha"               
+[153] "Musiq"                         
+[154] "Mya"                           
+[155] "Mystikal"                      
+[156] "N'Sync"                        
+[157] "Nas"                           
+[158] "Nelly"                         
+[159] "Next"                          
+[160] "Nine Days"                     
+[161] "No Doubt"                      
+[162] "Nu Flavor"                     
+[163] "Offspring, The"                
+[164] "Paisley, Brad"                 
+[165] "Papa Roach"                    
+[166] "Pearl Jam"                     
+[167] "Pink"                          
+[168] "Price, Kelly"                  
+[169] "Profyle"                       
+[170] "Puff Daddy"                    
+[171] "Q-Tip"                         
+[172] "R.E.M."                        
+[173] "Rascal Flatts"                 
+[174] "Raye, Collin"                  
+[175] "Red Hot Chili Peppers"         
+[176] "Rimes, LeAnn"                  
+[177] "Rogers, Kenny"                 
+[178] "Ruff Endz"                     
+[179] "Sammie"                        
+[180] "Santana"                       
+[181] "Savage Garden"                 
+[182] "SheDaisy"                      
+[183] "Sheist, Shade"                 
+[184] "Shyne"                         
+[185] "Simpson, Jessica"              
+[186] "Sisqo"                         
+[187] "Sister Hazel"                  
+[188] "Smash Mouth"                   
+[189] "Smith, Will"                   
+[190] "Son By Four"                   
+[191] "Sonique"                       
+[192] "SoulDecision"                  
+[193] "Spears, Britney"               
+[194] "Spencer, Tracie"               
+[195] "Splender"                      
+[196] "Sting"                         
+[197] "Stone Temple Pilots"           
+[198] "Stone, Angie"                  
+[199] "Strait, George"                
+[200] "Sugar Ray"                     
+[201] "TLC"                           
+[202] "Tamar"                         
+[203] "Tamia"                         
+[204] "Third Eye Blind"               
+[205] "Thomas, Carl"                  
+[206] "Tippin, Aaron"                 
+[207] "Train"                         
+[208] "Trick Daddy"                   
+[209] "Trina"                         
+[210] "Tritt, Travis"                 
+[211] "Tuesday"                       
+[212] "Urban, Keith"                  
+[213] "Usher"                         
+[214] "Vassar, Phil"                  
+[215] "Vertical Horizon"              
+[216] "Vitamin C"                     
+[217] "Walker, Clay"                  
+[218] "Wallflowers, The"              
+[219] "Westlife"                      
+[220] "Williams, Robbie"              
+[221] "Wills, Mark"                   
+[222] "Worley, Darryl"                
+[223] "Wright, Chely"                 
+[224] "Yankee Grey"                   
+[225] "Yearwood, Trisha"              
+[226] "Ying Yang Twins"               
+[227] "Zombie Nation"                 
+[228] "matchbox twenty"               
+\end{verbatim}
+\end{itemize}
+
+\subsection{\texorpdfstring{Filtrando linhas: \texttt{filter},
+\texttt{slice}}{Filtrando linhas: filter, slice}}\label{filtrando-linhas-filter-slice}
+
+\begin{itemize}
+\item
+  Apenas as músicas da Britney Spears:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(artista }\SpecialCharTok{==} \StringTok{\textquotesingle{}Spears, Britney\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 51 x 5
+  artista         musica                  entrou     semana   pos
+  <chr>           <chr>                   <date>      <int> <dbl>
+1 Spears, Britney From The Bottom Of M... 2000-01-29      1    76
+2 Spears, Britney From The Bottom Of M... 2000-01-29      2    59
+3 Spears, Britney From The Bottom Of M... 2000-01-29      3    52
+4 Spears, Britney From The Bottom Of M... 2000-01-29      4    52
+5 Spears, Britney From The Bottom Of M... 2000-01-29      5    14
+6 Spears, Britney From The Bottom Of M... 2000-01-29      6    14
+# i 45 more rows
+\end{verbatim}
+\item
+  Apenas músicas que chegaram à posição $1$, sem mostrar a coluna
+  \texttt{pos}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(pos }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{pos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 55 x 4
+  artista             musica                  entrou     semana
+  <chr>               <chr>                   <date>      <int>
+1 Aaliyah             Try Again               2000-03-18     14
+2 Aguilera, Christina Come On Over Baby (A... 2000-08-05     11
+3 Aguilera, Christina Come On Over Baby (A... 2000-08-05     12
+4 Aguilera, Christina Come On Over Baby (A... 2000-08-05     13
+5 Aguilera, Christina Come On Over Baby (A... 2000-08-05     14
+6 Aguilera, Christina What A Girl Wants       1999-11-27      8
+# i 49 more rows
+\end{verbatim}
+\item
+  Apenas músicas que chegaram à posição $1$ em menos de $10$ semanas,
+  mostrando apenas artista e música:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(pos }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, semana }\SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{(artista, musica)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 2
+  artista             musica                 
+  <chr>               <chr>                  
+1 Aguilera, Christina What A Girl Wants      
+2 Destiny's Child     Independent Women Pa...
+3 Madonna             Music                  
+4 Santana             Maria, Maria           
+5 Sisqo               Incomplete             
+\end{verbatim}
+\item
+  As funções da família \texttt{slice} filtram linhas de diversas
+  maneiras.
+\item
+  De acordo com seus índices (números de linha):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{5000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 5
+  artista                 musica              entrou     semana   pos
+  <chr>                   <chr>               <date>      <int> <dbl>
+1 2 Pac                   Baby Don't Cry (Ke~ 2000-02-26      1    87
+2 Clark Family Experience Meanwhile Back At ~ 2000-11-18      3    81
+3 Vassar, Phil            Carlene             2000-03-04      3    64
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 5
+  artista musica                  entrou     semana   pos
+  <chr>   <chr>                   <date>      <int> <dbl>
+1 2 Pac   Baby Don't Cry (Keep... 2000-02-26      1    87
+2 2 Pac   Baby Don't Cry (Keep... 2000-02-26      2    82
+3 2 Pac   Baby Don't Cry (Keep... 2000-02-26      3    72
+4 2 Pac   Baby Don't Cry (Keep... 2000-02-26      4    77
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 5
+  artista         musica entrou     semana   pos
+  <chr>           <chr>  <date>      <int> <dbl>
+1 matchbox twenty Bent   2000-04-29     36    37
+2 matchbox twenty Bent   2000-04-29     37    38
+3 matchbox twenty Bent   2000-04-29     38    38
+4 matchbox twenty Bent   2000-04-29     39    48
+\end{verbatim}
+\item
+  De acordo com a {\hl{ordenação de uma coluna}} ou {\hl{de uma função
+  das colunas}}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_min}\NormalTok{(pos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 55 x 5
+  artista             musica                  entrou     semana   pos
+  <chr>               <chr>                   <date>      <int> <dbl>
+1 Aaliyah             Try Again               2000-03-18     14     1
+2 Aguilera, Christina Come On Over Baby (A... 2000-08-05     11     1
+3 Aguilera, Christina Come On Over Baby (A... 2000-08-05     12     1
+4 Aguilera, Christina Come On Over Baby (A... 2000-08-05     13     1
+5 Aguilera, Christina Come On Over Baby (A... 2000-08-05     14     1
+6 Aguilera, Christina What A Girl Wants       1999-11-27      8     1
+# i 49 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_max}\NormalTok{(semana)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 5
+  artista musica entrou     semana   pos
+  <chr>   <chr>  <date>      <int> <dbl>
+1 Creed   Higher 1999-09-11     65    49
+\end{verbatim}
+\item
+  Aleatoriamente, criando uma amostra:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_sample}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 5
+  artista         musica                  entrou     semana   pos
+  <chr>           <chr>                   <date>      <int> <dbl>
+1 Raye, Collin    Couldn't Last A Mome... 2000-03-18      4    73
+2 Mystikal        Shake Ya Ass            2000-08-12      4    41
+3 Savage Garden   I Knew I Loved You      1999-10-23     23     8
+4 N'Sync          It's Gonna Be Me        2000-05-06      4    39
+5 Lopez, Jennifer Feelin' Good            2000-02-19     18    82
+\end{verbatim}
+\item
+  Veja a ajuda de \texttt{slice} para saber mais sobre estas funções.
+  Por exemplo:
+
+  \begin{itemize}
+  \item
+    \texttt{slice\_min} e \texttt{slice\_max} podem considerar ou não
+    empates.
+  \item
+    Você pode especificar uma proporção de linhas (usando \texttt{prop})
+    em vez da quantidade de linhas (\texttt{n}).
+  \item
+    Você pode fazer amostragem com reposição, ou com probabilidades
+    diferentes para cada linha.
+  \end{itemize}
+\end{itemize}
+
+\subsection{\texorpdfstring{Ordenando linhas:
+\texttt{arrange}}{Ordenando linhas: arrange}}\label{ordenando-linhas-arrange}
+
+\begin{itemize}
+\item
+  Por título, sem repetições:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(musica)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 316 x 1
+  musica                 
+  <chr>                  
+1 (Hot S**t) Country G...
+2 3 Little Words         
+3 911                    
+4 A Country Boy Can Su...
+5 A Little Gasoline      
+6 A Puro Dolor (Purest...
+# i 310 more rows
+\end{verbatim}
+\item
+  Por título, sem repetições, em ordem inversa:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(musica))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 316 x 1
+  musica                 
+  <chr>                  
+1 www.memory             
+2 Your Everything        
+3 You're A God           
+4 You'll Always Be Lov...
+5 You Won't Be Lonely ...
+6 You Should've Told M...
+# i 310 more rows
+\end{verbatim}
+\end{itemize}
+
+\subsection{\texorpdfstring{Contando linhas:
+\texttt{count}}{Contando linhas: count}}\label{contando-linhas-count}
+
+\begin{itemize}
+\item
+  Quantas semanas cada artista ficou nos \emph{top} $100$? Duas músicas
+  na mesma semana contam como duas semanas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(artista, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 228 x 2
+  artista             n
+  <chr>           <int>
+1 Creed             104
+2 Lonestar           95
+3 Destiny's Child    92
+4 N'Sync             74
+5 Sisqo              74
+6 3 Doors Down       73
+# i 222 more rows
+\end{verbatim}
+\item
+  Quantas semanas cada música ficou nos \emph{top} $100$?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(musica, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 316 x 2
+  musica                  n
+  <chr>               <int>
+1 Higher                 57
+2 Amazed                 55
+3 Breathe                53
+4 Kryptonite             53
+5 With Arms Wide Open    47
+6 I Wanna Know           44
+# i 310 more rows
+\end{verbatim}
+\item
+  Se houve músicas com o mesmo nome, mas de artistas diferentes, {\hl{o
+  código acima está errado}}. O certo é
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(musica, artista, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 317 x 3
+  musica              artista          n
+  <chr>               <chr>        <int>
+1 Higher              Creed           57
+2 Amazed              Lonestar        55
+3 Breathe             Hill, Faith     53
+4 Kryptonite          3 Doors Down    53
+5 With Arms Wide Open Creed           47
+6 I Wanna Know        Joe             44
+# i 311 more rows
+\end{verbatim}
+
+  De fato, há uma diferença de uma linha.
+\end{itemize}
+
+\subsubsection{Exercício}\label{exercuxedcio-1}
+
+\begin{itemize}
+\item
+  Ache o título da música que tem dois artistas diferentes.
+
+  \textbf{Sugestão:} conte por música e artista primeiro, depois só por
+  música.
+\end{itemize}
+
+\subsection{\texorpdfstring{Agrupando linhas: \texttt{group\_by} e
+\texttt{summarize}}{Agrupando linhas: group\_by e summarize}}\label{agrupando-linhas-group_by-e-summarize}
+
+\begin{itemize}
+\item
+  Qual foi a melhor posição que cada artista alcançou?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{melhor =} \FunctionTok{min}\NormalTok{(pos)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(melhor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 228 x 2
+  artista             melhor
+  <chr>                <dbl>
+1 Aaliyah                  1
+2 Aguilera, Christina      1
+3 Carey, Mariah            1
+4 Creed                    1
+5 Destiny's Child          1
+6 Iglesias, Enrique        1
+# i 222 more rows
+\end{verbatim}
+\item
+  Qual foi a melhor posição que cada música alcançou?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista, musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{melhor =} \FunctionTok{min}\NormalTok{(pos)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(melhor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'artista'. You can override
+using the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+# A tibble: 317 x 3
+# Groups:   artista [228]
+  artista             musica                  melhor
+  <chr>               <chr>                    <dbl>
+1 Aaliyah             Try Again                    1
+2 Aguilera, Christina Come On Over Baby (A...      1
+3 Aguilera, Christina What A Girl Wants            1
+4 Carey, Mariah       Thank God I Found Yo...      1
+5 Creed               With Arms Wide Open          1
+6 Destiny's Child     Independent Women Pa...      1
+# i 311 more rows
+\end{verbatim}
+\item
+  Quando usamos \texttt{summarize}, só o agrupamento {\hl{mais interno}}
+  é desfeito. Isto significa que {\hl{o resultado acima ainda está
+  agrupado por {\mbox{\texttt{artista}}}}}.
+\item
+  Quantas semanas cada artista ficou na posição $1$?
+
+  A função \texttt{n()} é uma maneira conveniente de {\hl{obter o número
+  de linhas de um grupo}} (ou, se não houver agrupamento, de toda a
+  \emph{tibble}); mas {\hl{{\mbox{\texttt{n()}}} só pode ser chamada em
+  certos contextos}}, como \texttt{summarise()} ou \texttt{mutate()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(pos }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{semanas =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(semanas))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 15 x 2
+  artista             semanas
+  <chr>                 <int>
+1 Destiny's Child          14
+2 Santana                  10
+3 Aguilera, Christina       6
+4 Madonna                   4
+5 Savage Garden             4
+6 Iglesias, Enrique         3
+# i 9 more rows
+\end{verbatim}
+\item
+  Perceba que \texttt{count}, que vimos mais acima, faz agrupamentos do
+  mesmo modo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(pos }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(artista, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 15 x 2
+  artista                 n
+  <chr>               <int>
+1 Destiny's Child        14
+2 Santana                10
+3 Aguilera, Christina     6
+4 Madonna                 4
+5 Savage Garden           4
+6 Iglesias, Enrique       3
+# i 9 more rows
+\end{verbatim}
+\item
+  Uma pergunta diferente: quais são os artistas cujas músicas apareceram
+  no \emph{top} $100$ mais tempo depois do lançamento da música?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{semanas =} \FunctionTok{max}\NormalTok{(semana)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(semanas))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 228 x 2
+  artista          semanas
+  <chr>              <int>
+1 Creed                 65
+2 Lonestar              64
+3 3 Doors Down          53
+4 Hill, Faith           53
+5 Joe                   44
+6 Vertical Horizon      41
+# i 222 more rows
+\end{verbatim}
+\item
+  Qual a posição média de cada música? Lembre-se de que eliminamos as
+  linhas com \texttt{NA}; logo, {\hl{a média vai ser sobre a quantidade
+  de semanas em que a música esteve na lista}}.
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media1 }\OtherTok{\textless{}{-}}\NormalTok{ bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista, musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{media =} \FunctionTok{mean}\NormalTok{(pos), }\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(media)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 317 x 3
+  artista                          musica                  media
+  <chr>                            <chr>                   <dbl>
+1 "Santana"                        Maria, Maria             10.5
+2 "Madonna"                        Music                    13.5
+3 "N'Sync"                         Bye Bye Bye              14.3
+4 "Elliott, Missy \"Misdemeanor\"" Hot Boyz                 14.3
+5 "Destiny's Child"                Independent Women Pa...  14.8
+6 "Iglesias, Enrique"              Be With You              15.8
+# i 311 more rows
+\end{verbatim}
+\item
+  E se quisermos {\hl{a média sobre o número de semanas desde a entrada
+  da música até a última semana}} em que a música apareceu na lista?
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media2 }\OtherTok{\textless{}{-}}\NormalTok{ bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista, musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{media =} \FunctionTok{sum}\NormalTok{(pos)}\SpecialCharTok{/}\FunctionTok{max}\NormalTok{(semana), }\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(media)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{media2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 317 x 3
+  artista                          musica                  media
+  <chr>                            <chr>                   <dbl>
+1 "Santana"                        Maria, Maria             10.5
+2 "Madonna"                        Music                    13.5
+3 "N'Sync"                         Bye Bye Bye              14.3
+4 "Elliott, Missy \"Misdemeanor\"" Hot Boyz                 14.3
+5 "Destiny's Child"                Independent Women Pa...  14.8
+6 "Iglesias, Enrique"              Be With You              15.8
+# i 311 more rows
+\end{verbatim}
+
+  As primeiras linhas são iguais, mas os resultados são diferentes:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{identical}\NormalTok{(media1, media2)}
+\end{Highlighting}
+\end{Shaded}
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+  ::: :::
+\end{itemize}
+
+\section{Exercícios}\label{exercuxedcios-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Vamos trabalhar com um conjunto de dados sobre super-heróis.
+
+  Carregue o \texttt{tidyverse} com o comando
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+
+  Execute o seguinte comando para ler os dados para uma \emph{tibble}:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{arquivo }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}
+  \StringTok{\textquotesingle{}https://github.com/fnaufel/\textquotesingle{}}\NormalTok{,}
+  \StringTok{\textquotesingle{}probestr/raw/master/data/\textquotesingle{}}\NormalTok{,}
+  \StringTok{\textquotesingle{}heroes\_information.csv\textquotesingle{}}      
+\NormalTok{)}
+
+\NormalTok{herois\_info }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+\NormalTok{  arquivo,}
+  \AttributeTok{na =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}NA\textquotesingle{}}\NormalTok{)}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# Eliminar a primeira coluna (números de série)}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \CommentTok{\# Renomear colunas restantes}
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{nome =}\NormalTok{ name,}
+    \AttributeTok{sexo =}\NormalTok{ Gender,}
+    \AttributeTok{olhos =} \StringTok{\textquotesingle{}Eye color\textquotesingle{}}\NormalTok{,}
+\NormalTok{    raça }\OtherTok{=}\NormalTok{ Race,}
+    \AttributeTok{cabelos =} \StringTok{\textquotesingle{}Hair color\textquotesingle{}}\NormalTok{,}
+    \AttributeTok{altura =}\NormalTok{ Height,}
+    \AttributeTok{editora =}\NormalTok{ Publisher,}
+    \AttributeTok{pele =} \StringTok{\textquotesingle{}Skin color\textquotesingle{}}\NormalTok{,}
+    \AttributeTok{lado =}\NormalTok{ Alignment,}
+    \AttributeTok{peso =}\NormalTok{ Weight}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  :::
+\item
+  Quantas linhas tem a \emph{tibble}?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 734
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Existem heróis que aparecem em mais de uma linha?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(nome)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 715 x 2
+  nome              n
+  <chr>         <int>
+1 A-Bomb            1
+2 Abe Sapien        1
+3 Abin Sur          1
+4 Abomination       1
+5 Abraxas           1
+6 Absorbing Man     1
+# i 709 more rows
+\end{verbatim}
+
+  Precisaríamos {\hl{examinar a tabela acima}}, procurando linhas com
+  $n > 1$.
+
+  {\hl{Vamos pedir para o R fazer isto:}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{repetidos }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(nome) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(n }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{repetidos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 17 x 2
+  nome             n
+  <chr>        <int>
+1 Angel            2
+2 Atlas            2
+3 Atom             2
+4 Batgirl          2
+5 Batman           2
+6 Black Canary     2
+# i 11 more rows
+\end{verbatim}
+
+  Vamos mostrar mais dados destes heróis:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(nome }\SpecialCharTok{\%in\%}\NormalTok{ repetidos}\SpecialCharTok{$}\NormalTok{nome) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(nome, editora, raça, }\FunctionTok{everything}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 36 x 10
+  nome  editora    raça  sexo  olhos cabelos altura pele  lado   peso
+  <chr> <chr>      <chr> <chr> <chr> <chr>    <dbl> <chr> <chr> <dbl>
+1 Angel Marvel Co~ <NA>  Male  blue  Blond      183 <NA>  good     68
+2 Angel Dark Hors~ Vamp~ Male  <NA>  <NA>       -99 <NA>  good    -99
+3 Atlas Marvel Co~ Muta~ Male  brown Red        183 <NA>  good    101
+4 Atlas DC Comics  God ~ Male  blue  Brown      198 <NA>  bad     126
+5 Atom  DC Comics  <NA>  Male  blue  Red        178 <NA>  good     68
+6 Atom  DC Comics  <NA>  Male  <NA>  <NA>       -99 <NA>  good    -99
+# i 30 more rows
+\end{verbatim}
+
+  Em alguns casos, são editoras diferentes (como para Angel e Atlas).
+
+  Em alguns casos, o mesmo herói aparece com várias características.
+
+  São $17$ heróis que aparecem mais de uma vez. É um número pequeno o
+  bastante para corrigirmos a situação manualmente.
+
+  Como não tenho conhecimento suficiente sobre heróis para fazer isso,
+  vou ignorar esta confusão e usar os dados como estão.
+
+  \end{tcolorbox}
+\item
+  Quantas editoras diferentes existem na \emph{tibble}? Liste-as em
+  ordem decrescente de quantidade de heróis.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(editora, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 25 x 2
+  editora               n
+  <chr>             <int>
+1 Marvel Comics       388
+2 DC Comics           215
+3 NBC - Heroes         19
+4 Dark Horse Comics    18
+5 <NA>                 15
+6 George Lucas         14
+# i 19 more rows
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Vamos colocar todas as editores menores em uma classe só.
+
+  Na coluna \texttt{editora}, substitua
+
+  \begin{itemize}
+  \tightlist
+  \item
+    `Marvel Comics' por `Marvel',
+  \item
+    `DC Comics' por `DC', e
+  \item
+    todas as outras editoras pelo termo `Outras'.
+  \end{itemize}
+
+  \textbf{Dica:} use a função \texttt{case\_when()}, do
+  \texttt{tidyverse}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{editora =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      editora }\SpecialCharTok{==} \StringTok{\textquotesingle{}Marvel Comics\textquotesingle{}} \SpecialCharTok{\textasciitilde{}} \StringTok{\textquotesingle{}Marvel\textquotesingle{}}\NormalTok{,}
+\NormalTok{      editora }\SpecialCharTok{==} \StringTok{\textquotesingle{}DC Comics\textquotesingle{}} \SpecialCharTok{\textasciitilde{}} \StringTok{\textquotesingle{}DC\textquotesingle{}}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{\textquotesingle{}Outras\textquotesingle{}}
+\NormalTok{    )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+  \end{tcolorbox}
+\item
+  Confira, novamente, a quantidade de valores diferentes na coluna
+  \texttt{editora}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(editora, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 2
+  editora     n
+  <chr>   <int>
+1 Marvel    388
+2 DC        215
+3 Outras    131
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Existem heróis sem informação de editora. Quantos? Quais são?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(editora))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 0 x 10
+# i 10 variables: nome <chr>, sexo <chr>, olhos <chr>, raça <chr>,
+#   cabelos <chr>, altura <dbl>, editora <chr>, pele <chr>,
+#   lado <chr>, peso <dbl>
+\end{verbatim}
+
+  Na verdade, a chamada a \texttt{case\_when()}, da maneira como fiz, já
+  substituiu os \texttt{NA} por `Outras'. Entenda por quê.
+
+  \end{tcolorbox}
+\item
+  Altere novamente a coluna \texttt{editora}, colocando o valor `Outras'
+  para os heróis sem informação de editora. Use a função
+  \texttt{if\_else()} (com \emph{underscore}, não a função
+  \texttt{ifelse}).
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+  Se, no seu caso, ainda houver valores \texttt{NA} em \texttt{editora},
+  basta fazer o seguinte:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{editora =} \FunctionTok{if\_else}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(editora), }\StringTok{\textquotesingle{}Outras\textquotesingle{}}\NormalTok{, editora)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  \end{tcolorbox}
+\item
+  Confira, mais uma vez, a quantidade de valores diferentes na coluna
+  \texttt{editora}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(editora, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 2
+  editora     n
+  <chr>   <int>
+1 Marvel    388
+2 DC        215
+3 Outras    131
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Existem heróis sem informação de sexo? Quantos? Para estes heróis,
+  coloque o valor `Desconhecido' na coluna \texttt{sexo}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sexo))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 29 x 10
+  nome     sexo  olhos raça  cabelos altura editora pele  lado   peso
+  <chr>    <chr> <chr> <chr> <chr>    <dbl> <chr>   <chr> <chr> <dbl>
+1 Bird-Br~ <NA>  <NA>  <NA>  <NA>       -99 Marvel  <NA>  good    -99
+2 Blaques~ <NA>  black <NA>  No Hair    -99 Marvel  <NA>  good    -99
+3 Box III  <NA>  blue  <NA>  Blond      193 Marvel  <NA>  good    110
+4 Box IV   <NA>  brown <NA>  Brown ~    -99 Marvel  <NA>  good    -99
+5 Captain~ <NA>  <NA>  God ~ <NA>       -99 Marvel  <NA>  good    -99
+6 Cecilia~ <NA>  brown <NA>  Brown      170 Marvel  <NA>  good     62
+# i 23 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\OtherTok{\textless{}{-}}\NormalTok{  herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{sexo =} \FunctionTok{if\_else}\NormalTok{(}
+      \FunctionTok{is.na}\NormalTok{(sexo),}
+      \StringTok{\textquotesingle{}Desconhecido\textquotesingle{}}\NormalTok{,}
+\NormalTok{      sexo}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  Conferindo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sexo))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 0 x 10
+# i 10 variables: nome <chr>, sexo <chr>, olhos <chr>, raça <chr>,
+#   cabelos <chr>, altura <dbl>, editora <chr>, pele <chr>,
+#   lado <chr>, peso <dbl>
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Qual a altura mínima? Qual a altura máxima? Substitua as alturas
+  negativas por \texttt{NA}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+  Podemos extrair o vetor de alturas com \texttt{pull} e usar a função
+  \texttt{summary} do R base, que retorna um vetor:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(altura) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  -99,0   -99,0   175,0   102,3   185,0   975,0 
+\end{verbatim}
+
+  Ou podemos usar \texttt{summarize}, do \texttt{tidyverse}, que retorna
+  uma \emph{tibble}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{minimo =} \FunctionTok{min}\NormalTok{(altura),}
+    \AttributeTok{maximo =} \FunctionTok{max}\NormalTok{(altura)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+  minimo maximo
+   <dbl>  <dbl>
+1    -99    975
+\end{verbatim}
+
+  Quantas alturas negativas existem?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(altura }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 2
+  `altura < 0`     n
+  <lgl>        <int>
+1 FALSE          517
+2 TRUE           217
+\end{verbatim}
+
+  Substituindo as alturas negativas por \texttt{NA}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{altura =} \FunctionTok{if\_else}\NormalTok{(}
+\NormalTok{      altura }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{,}
+      \ConstantTok{NA\_real\_}\NormalTok{,}
+\NormalTok{      altura}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  Como \texttt{if\_else} (com \emph{underscore}) é exigente, precisamos
+  passar \texttt{NA\_real\_} em vez de \texttt{NA}.
+
+  Situação atual:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(altura) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   15,2   173,0   183,0   186,7   191,0   975,0     217 
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Qual o peso mínimo? Qual o peso máximo? Substitua os pesos negativos
+  por \texttt{NA}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+  Como fizemos com as alturas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(peso) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+ -99,00  -99,00   62,00   43,86   90,00  900,00       2 
+\end{verbatim}
+
+  Observe que existem valores \texttt{NA} em peso.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{minimo =} \FunctionTok{min}\NormalTok{(peso),}
+    \AttributeTok{maximo =} \FunctionTok{max}\NormalTok{(peso)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+  minimo maximo
+   <dbl>  <dbl>
+1     NA     NA
+\end{verbatim}
+
+  Para ignorar os valores \texttt{NA} nas funções \texttt{min()} e
+  \texttt{max()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{minimo =} \FunctionTok{min}\NormalTok{(peso, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{maximo =} \FunctionTok{max}\NormalTok{(peso, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+  minimo maximo
+   <dbl>  <dbl>
+1    -99    900
+\end{verbatim}
+
+  Quantos pesos negativos existem?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(peso }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 2
+  `peso < 0`     n
+  <lgl>      <int>
+1 FALSE        495
+2 TRUE         237
+3 NA             2
+\end{verbatim}
+
+  Substituindo por \texttt{NA}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{peso =} \FunctionTok{if\_else}\NormalTok{(}
+\NormalTok{      peso }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{,}
+      \ConstantTok{NA\_real\_}\NormalTok{,}
+\NormalTok{      peso}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+  Como \texttt{if\_else} (com \emph{underscore}) é exigente, precisamos
+  passar \texttt{NA\_real\_} em vez de \texttt{NA}.
+
+  Situação atual:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(peso) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    2,0    61,0    81,0   112,3   108,0   900,0     239 
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Qual é o peso médio de todos os heróis? Ignore os valores \texttt{NA}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pull}\NormalTok{(peso) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mean}\NormalTok{(}\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 112,2525
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Qual é a altura média de todos os heróis? Ignore os valores
+  \texttt{NA}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pull}\NormalTok{(altura) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mean}\NormalTok{(}\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 186,7263
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Qual é a altura média dos heróis, por editora? Ignore os valores
+  \texttt{NA}.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(editora) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(média }\OtherTok{=} \FunctionTok{mean}\NormalTok{(altura, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 2
+  editora média
+  <chr>   <dbl>
+1 DC       181.
+2 Marvel   191.
+3 Outras   179.
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Quais são os $3$ heróis mais altos de cada sexo?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(sexo) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_max}\NormalTok{(altura, }\AttributeTok{n =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(nome, sexo, altura)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 11 x 3
+# Groups:   sexo [3]
+  nome          sexo         altura
+  <chr>         <chr>         <dbl>
+1 Living Brain  Desconhecido    198
+2 Fabian Cortez Desconhecido    196
+3 Box III       Desconhecido    193
+4 Firelord      Desconhecido    193
+5 Wolfsbane     Female          366
+6 Rey           Female          297
+# i 5 more rows
+\end{verbatim}
+
+  Como houve empates, foram mostrados $4$ de sexo desconhecido e $4$ do
+  sexo feminino.
+
+  Leia a documentação da função \texttt{slice\_max} para descobrir como
+  mostrar exatamente $n$ de cada grupo. (Dica: ``empate'', em inglês, é
+  ``\emph{tie}''.)
+
+  \end{tcolorbox}
+\item
+  Quais são as $3$ cores de olhos mais comuns para cada sexo?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(sexo) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(olhos, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 9 x 3
+# Groups:   sexo [3]
+  sexo         olhos     n
+  <chr>        <chr> <int>
+1 Desconhecido <NA>     10
+2 Desconhecido blue      6
+3 Desconhecido red       5
+4 Female       blue     76
+5 Female       green    43
+6 Female       <NA>     41
+# i 3 more rows
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Liste, por editora, as quantidades de heróis do bem, do mal, e
+  neutros.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(editora) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(lado)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 11 x 3
+# Groups:   editora [3]
+  editora lado        n
+  <chr>   <chr>   <int>
+1 DC      bad        59
+2 DC      good      142
+3 DC      neutral    13
+4 DC      <NA>        1
+5 Marvel  bad       115
+6 Marvel  good      259
+# i 5 more rows
+\end{verbatim}
+
+  ou
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(editora, lado) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` has grouped output by 'editora'. You can override
+using the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+# A tibble: 11 x 3
+# Groups:   editora [3]
+  editora lado    `n()`
+  <chr>   <chr>   <int>
+1 DC      bad        59
+2 DC      good      142
+3 DC      neutral    13
+4 DC      <NA>        1
+5 Marvel  bad       115
+6 Marvel  good      259
+# i 5 more rows
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Quantas raças diferentes existem?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{n\_distinct}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 62
+\end{verbatim}
+
+  ou (mostrando os nomes das raças e as quantidades de heróis por raça)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(raça)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 62 x 2
+  raça          n
+  <chr>     <int>
+1 Alien         7
+2 Alpha         5
+3 Amazon        2
+4 Android       9
+5 Animal        4
+6 Asgardian     5
+# i 56 more rows
+\end{verbatim}
+
+  ou
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 62 x 2
+  raça      `n()`
+  <chr>     <int>
+1 Alien         7
+2 Alpha         5
+3 Amazon        2
+4 Android       9
+5 Animal        4
+6 Asgardian     5
+# i 56 more rows
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  Qual a quantidade de raças diferentes de cada editora?
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(editora) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n\_distinct}\NormalTok{(raça))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 2
+  editora     n
+  <chr>   <int>
+1 DC         30
+2 Marvel     32
+3 Outras     23
+\end{verbatim}
+
+  \end{tcolorbox}
+\item
+  \textbf{DESAFIO:} Liste as raças que só pertencem a uma única editora.
+
+  Existem várias maneiras de fazer isto. Experimente várias, até achar
+  uma que seja mais elegante.
+
+  \begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Resposta}, toprule=.15mm, leftrule=.75mm, opacityback=0, colback=white, arc=.35mm, breakable, bottomtitle=1mm, left=2mm, toptitle=1mm, titlerule=0mm, rightrule=.15mm, bottomrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame]
+
+  \begin{itemize}
+  \item
+    Maneira simples, usando contagem:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n\_ed =} \FunctionTok{n\_distinct}\NormalTok{(editora)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(n\_ed }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 47 x 2
+  raça        n_ed
+  <chr>      <int>
+1 Alpha          1
+2 Amazon         1
+3 Asgardian      1
+4 Bizarro        1
+5 Bolovaxian     1
+6 Clone          1
+# i 41 more rows
+\end{verbatim}
+  \item
+    Maneira repetitiva, manual:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{racas\_marvel }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(editora }\SpecialCharTok{==} \StringTok{\textquotesingle{}Marvel\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{racas\_dc }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(editora }\SpecialCharTok{==} \StringTok{\textquotesingle{}DC\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{racas\_outras }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(editora }\SpecialCharTok{==} \StringTok{\textquotesingle{}Outras\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unique}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+    Exclusivas da Marvel:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{racas\_marvel }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{setdiff}\NormalTok{(racas\_dc) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{setdiff}\NormalTok{(racas\_outras) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(raça)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 17 x 1
+  raça          
+  <chr>         
+1 Asgardian     
+2 Clone         
+3 Cosmic Entity 
+4 Eternal       
+5 Flora Colossus
+6 Frost Giant   
+# i 11 more rows
+\end{verbatim}
+
+    Exclusivas da DC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{racas\_dc }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{setdiff}\NormalTok{(racas\_marvel) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{setdiff}\NormalTok{(racas\_outras) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(raça)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 17 x 1
+  raça           
+  <chr>          
+1 Amazon         
+2 Bizarro        
+3 Bolovaxian     
+4 Czarnian       
+5 Gorilla        
+6 Human-Vuldarian
+# i 11 more rows
+\end{verbatim}
+
+    Exclusivas de outras editoras:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{racas\_outras }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{setdiff}\NormalTok{(racas\_dc) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{setdiff}\NormalTok{(racas\_marvel) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(raça)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 13 x 1
+  raça              
+  <chr>             
+1 Alpha             
+2 Dathomirian Zabrak
+3 Gungan            
+4 Human / Clone     
+5 Human-Vulcan      
+6 Icthyo Sapien     
+# i 7 more rows
+\end{verbatim}
+  \item
+    Mesma maneira, mas usando uma função:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{racas\_exclusivas }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+
+\NormalTok{  esta\_editora }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{filter}\NormalTok{(editora }\SpecialCharTok{==}\NormalTok{ x) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{select}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{  outras\_editoras }\OtherTok{\textless{}{-}}\NormalTok{ herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{filter}\NormalTok{(editora }\SpecialCharTok{!=}\NormalTok{ x) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{select}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{  esta\_editora }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{setdiff}\NormalTok{(outras\_editoras) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{arrange}\NormalTok{(raça)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{racas\_exclusivas}\NormalTok{(}\StringTok{\textquotesingle{}Marvel\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 17 x 1
+  raça          
+  <chr>         
+1 Asgardian     
+2 Clone         
+3 Cosmic Entity 
+4 Eternal       
+5 Flora Colossus
+6 Frost Giant   
+# i 11 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{racas\_exclusivas}\NormalTok{(}\StringTok{\textquotesingle{}DC\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 17 x 1
+  raça           
+  <chr>          
+1 Amazon         
+2 Bizarro        
+3 Bolovaxian     
+4 Czarnian       
+5 Gorilla        
+6 Human-Vuldarian
+# i 11 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{racas\_exclusivas}\NormalTok{(}\StringTok{\textquotesingle{}Outras\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 13 x 1
+  raça              
+  <chr>             
+1 Alpha             
+2 Dathomirian Zabrak
+3 Gungan            
+4 Human / Clone     
+5 Human-Vulcan      
+6 Icthyo Sapien     
+# i 7 more rows
+\end{verbatim}
+  \item
+    Maneira complicada, usando \texttt{join}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{herois\_info }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(raça, editora) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(raça) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n\_editoras =} \FunctionTok{n\_distinct}\NormalTok{(editora)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(n\_editoras }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{inner\_join}\NormalTok{(herois\_info, }\AttributeTok{by =} \StringTok{\textquotesingle{}raça\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(raça, editora) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unique}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(editora)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 47 x 2
+  raça            editora
+  <chr>           <chr>  
+1 Amazon          DC     
+2 Bizarro         DC     
+3 Bolovaxian      DC     
+4 Czarnian        DC     
+5 Gorilla         DC     
+6 Human-Vuldarian DC     
+# i 41 more rows
+\end{verbatim}
+  \end{itemize}
+
+  \end{tcolorbox}
+\end{enumerate}
+
+\section{\texorpdfstring{Examinando \emph{tibbles}
+intermediárias}{Examinando tibbles intermediárias}}\label{examinando-tibbles-intermediuxe1rias}
+
+\begin{itemize}
+\item
+  \href{https://github.com/daranzolin/ViewPipeSteps}{O pacote
+  \texttt{ViewPipeSteps}} serve para exibir (no console ou em
+  \emph{tabs} no RStudio) as \emph{tibbles} que são resultados de cada
+  passo em uma sequência de comandos montada com o \emph{pipe}
+  \texttt{\%\textgreater{}\%}.
+\item
+  Instale o pacote com o comando
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"ViewPipeSteps"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Carregue o pacote com
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ViewPipeSteps)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Para exibir, no console, as \emph{tibbles} intermediárias, acrescente
+  \texttt{print\_pipe\_steps(all\ =\ TRUE)} após o último passo do
+  \emph{pipe}:
+
+  ::: \{.cell layout-align=``center''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{resultado }\OtherTok{\textless{}{-}}\NormalTok{ bb\_tidy }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(artista, musica) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{media =} \FunctionTok{sum}\NormalTok{(pos)}\SpecialCharTok{/}\FunctionTok{max}\NormalTok{(semana), }\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(media) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{print\_pipe\_steps}\NormalTok{(}\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+  ::: \{.cell-output .cell-output-stderr\}
+
+\begin{verbatim}
+1. bb_tidy
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+# A tibble: 5.307 x 5
+  artista musica                  entrou     semana   pos
+  <chr>   <chr>                   <date>      <int> <dbl>
+1 2 Pac   Baby Don't Cry (Keep... 2000-02-26      1    87
+2 2 Pac   Baby Don't Cry (Keep... 2000-02-26      2    82
+3 2 Pac   Baby Don't Cry (Keep... 2000-02-26      3    72
+4 2 Pac   Baby Don't Cry (Keep... 2000-02-26      4    77
+5 2 Pac   Baby Don't Cry (Keep... 2000-02-26      5    87
+6 2 Pac   Baby Don't Cry (Keep... 2000-02-26      6    94
+# i 5.301 more rows
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stderr\}
+
+\begin{verbatim}
+2. group_by(artista, musica)
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+# A tibble: 5.307 x 5
+  artista musica                  entrou     semana   pos
+  <chr>   <chr>                   <date>      <int> <dbl>
+1 2 Pac   Baby Don't Cry (Keep... 2000-02-26      1    87
+2 2 Pac   Baby Don't Cry (Keep... 2000-02-26      2    82
+3 2 Pac   Baby Don't Cry (Keep... 2000-02-26      3    72
+4 2 Pac   Baby Don't Cry (Keep... 2000-02-26      4    77
+5 2 Pac   Baby Don't Cry (Keep... 2000-02-26      5    87
+6 2 Pac   Baby Don't Cry (Keep... 2000-02-26      6    94
+# i 5.301 more rows
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stderr\}
+
+\begin{verbatim}
+3. summarize(media = sum(pos)/max(semana), .groups = "drop")
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+# A tibble: 317 x 3
+  artista      musica                  media
+  <chr>        <chr>                   <dbl>
+1 2 Pac        Baby Don't Cry (Keep...  85.4
+2 2Ge+her      The Hardest Part Of ...  90  
+3 3 Doors Down Kryptonite               26.5
+4 3 Doors Down Loser                    67.1
+5 504 Boyz     Wobble Wobble            56.2
+6 98^0         Give Me Just One Nig...  37.6
+# i 311 more rows
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stderr\}
+
+\begin{verbatim}
+4. arrange(media)
+\end{verbatim}
+
+  :::
+
+  ::: \{.cell-output .cell-output-stdout\}
+
+\begin{verbatim}
+# A tibble: 317 x 3
+  artista                          musica                  media
+  <chr>                            <chr>                   <dbl>
+1 "Santana"                        Maria, Maria             10.5
+2 "Madonna"                        Music                    13.5
+3 "N'Sync"                         Bye Bye Bye              14.3
+4 "Elliott, Missy \"Misdemeanor\"" Hot Boyz                 14.3
+5 "Destiny's Child"                Independent Women Pa...  14.8
+6 "Iglesias, Enrique"              Be With You              15.8
+# i 311 more rows
+\end{verbatim}
+
+  ::: :::
+\item
+  Para exibir as \emph{tibbles} intermediárias em \emph{tabs} do RStudio
+  (como com a função \texttt{View()}), você pode usar o \emph{addin}
+  \texttt{viewPipeChain}, que também faz parte deste pacote. Veja o
+  exemplo \href{https://github.com/daranzolin/ViewPipeSteps}{no site do
+  pacote}.
+\end{itemize}
+
+
+
+\end{document}

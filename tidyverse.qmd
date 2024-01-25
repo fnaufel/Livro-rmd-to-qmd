@@ -1,0 +1,1148 @@
+{{< include _math.qmd >}}
+
+```{r echo=FALSE, include=FALSE}
+source('_setup.R')
+```
+
+# Introdução ao `tidyverse`
+
+::: {.callout-tip}
+
+Busque mais informações sobre os pacotes que compõem o `tidyverse` [nas referências recomendadas](#refrec).
+
+:::
+
+
+## Criando uma *tibble*
+
+* Uma *tibble* é uma tabela retangular.
+
+* [Cada coluna é um vetor]{.hl}:
+
+  ```{r}
+  cores <- tibble(
+    pessoa = c('João', 'Maria', 'Pedro', 'Ana'),
+    'cor favorita' = c('azul', 'rosa', 'preto', 'branco')
+  )
+  ```
+
+  ```{r}
+  cores
+  ```
+
+* Isto é um pouco diferente da maneira como estamos acostumados a ver tabelas (como uma coleção de linhas, em vez de uma coleção de colunas).
+
+* A função `tribble` permite a entrada de forma mais natural, linha a linha. [Lembre-se de usar `~` antes dos nomes das colunas.]{.hl}
+
+  ```{r}
+  cores <- tribble(
+    ~pessoa, ~'cor favorita',
+     "João",          "azul",
+    "Maria",          "rosa",
+    "Pedro",         "preto",
+      "Ana",        "branco"
+  )
+  ```
+
+  ```{r}
+  cores
+  ```
+
+  ::: {.callout-caution}
+  
+  Mesmo que você crie uma *tibble* linha a linha, o R vai continuar tratando sua *tibble* como uma coleção de colunas.
+  
+  É importante lembrar disto para entender a forma como R manipula estas tabelas.
+  
+  :::
+
+* Se uma coluna não puder ser armazenada em um vetor, a coluna será uma lista (com vetores como elementos):
+
+  ```{r}
+  cores <- tibble(
+    pessoa = c('João', 'Maria', 'Pedro', 'Ana'),
+    'cor favorita' = list(
+      c('azul', 'roxo'),
+      c('rosa', 'magenta'),
+      NA,
+      'branco'
+    )
+  )
+  ```
+
+  ```{r}
+  cores
+  ```
+
+* Use `View()` para examinar interativamente o conteúdo de uma coluna-lista:
+
+  ```{r eval=FALSE}
+  cores %>% View()
+  ```
+
+## Operador de *pipe* (`%>%`)
+
+* O `tidyverse` inclui o pacote `magrittr`, que contém o operador `%>%`, chamado *pipe*.[^trocadilho]
+
+[^trocadilho]: Por que o nome do pacote e o nome do operador formam um trocadilho?
+
+* A idéia é facilitar a leitura de [composições de funções]{.hl}. O código
+
+    ```{r eval=FALSE}
+    y <- h(g(f(x)))
+    ```
+
+  pode ser escrito como
+  
+    ```{r eval=FALSE}
+    y <- x %>% f() %>% g() %>% h()
+    ```
+
+* Esta segunda versão é mais fiel à ordem em que as operações acontecem.
+
+* Na verdade, R tem um operador de [atribuição para a direita]{.hl}, mas poucas pessoas recomendam usá-lo:
+
+    ```{r eval=FALSE}
+    x %>% f() %>% g() %>% h() -> y
+    ```
+
+* Se `f`, `g` e `h` forem funções de um argumento só, os parênteses podem ser omitidos:
+
+    ```{r eval=FALSE}
+    y <- x %>% f %>% g %>% h
+    ```
+
+* Se a função `f` tiver outros argumentos, escreva-os normalmente na chamada a `f`:
+
+    ```{r eval=FALSE}
+    y <- x %>% mean(na.rm = TRUE)
+    ```
+
+* O *pipe* `EXP %>% f(...)` sempre insere o resultado da expressão `EXP` como o [primeiro argumento da função `f`]{.hl}.
+
+* Se você precisar que o resultado da expressão `EXP` seja inserido em outra posição na lista de argumentos de `f`, use um ponto "`.`" para isso:
+
+    ```{r eval=FALSE}
+    x %>% consultar(df, .)
+    ```
+  
+  equivale a
+
+    ```{r eval=FALSE}
+    consultar(df, x)
+    ```
+  
+
+## Formato *tidy*
+
+* Nossa última versão da *tibble* `cores` é um pouco mais complexa do que deveria ser:
+
+  ```{r}
+  cores
+  ```
+
+* O formato *tidy* exige que 
+
+  1. [Cada linha]{.hl} da *tibble* corresponda a uma [observação]{.hl} sobre um indivíduo,
+  
+  1. [Cada coluna]{.hl} corresponda a [uma variável observada]{.hl}, e
+  
+  1. [Cada célula]{.hl} contenha [um valor]{.hl} da variável.
+  
+* Na *tibble* `cores`, a primeira e a segunda exigências são satisfeitas, mas a terceira não, pois algumas células contém valores múltiplos.
+
+* A *tibble* não está no formato *tidy*.
+
+* Podemos "extrair" estes vetores "aninhados" usando o comando `unnest`, do pacote `tidyr`:
+
+    ```{r}
+    cores <- cores %>% 
+      unnest(`cor favorita`)
+    ```
+    
+  ```{r}
+  cores
+  ```
+
+* [A maioria das funções do `tidyverse` exige que as *tibbles* estejam neste formato *tidy*.]{.hl}
+
+* Um exemplo mais complexo é o *dataset* `billboard`, com as seguintes colunas (para cada música que estava no *top 100* da Billboard no ano de $2000$):
+
+  * Nome do artista ou banda;
+  
+  * Nome da música;
+  
+  * Data em que a música entrou no *top 100* da Billboard;
+  
+  * Para cada uma das $76$ semanas seguintes, a posição da música no *top 100*.
+
+    ```{r}
+    billboard %>% glimpse()
+    ```
+
+* Vamos renomear as colunas:
+
+    ```{r}
+    bb <- billboard %>% 
+      rename(
+        artista = artist,
+        musica = track,
+        entrou = date.entered
+      )
+    ```
+  
+  ```{r}
+  bb %>% head()
+  ```
+
+* [O que é uma observação]{.hl} neste conjunto de dados?
+
+  [A posição, em uma semana, de uma música]{.hl} que esteve no *top* $100$ da *Billboard* durante o ano *2000*.
+  
+* [Quais são as variáveis]{.hl} que qualificam cada observação?
+
+  * O artista,
+  
+  * O título da música,
+  
+  * A posiçao da música no *top* $100$ da *Billboard* em cada uma das $76$ semanas depois que ela entrou na lista.
+  
+* Este último item é complexo, e o criador da *tibble* decidiu criar uma coluna por semana.
+
+* [Uma decisão ruim, pois existe informação embutida nos nomes das colunas.]{.hl} A coluna `wk68` corresponde à posição da música na semana $68$ após ela entrar na lista, [mas o número da semana só aparece no nome da coluna]{.hl}!
+
+* Isto [nunca]{.hl} deve acontecer. [A informação deve sempre estar nas células.]{.hl}
+
+* Vamos simplificar as coisas criando duas colunas:
+
+  * `semana`, com o número da semana; perceba que esta informação vem dos nomes das colunas,
+  
+  * `pos`, com a posição da música naquela semana; esta informação vem das células.
+  
+* A *tibble*, que antes era larga, [vai ser mais estreita e mais longa]{.hl}.
+
+* A função `pivot_longer`, do pacote `tidyr`, vai fazer o trabalho --- inclusive extraindo os números das semanas dos nomes das colunas:
+
+    ```{r}
+    bb_tidy <- bb %>% 
+      pivot_longer(
+        wk1:wk76,
+        names_to = 'semana',
+        names_prefix = 'wk',
+        names_transform = list(
+          semana = as.integer
+        ),
+        values_to = 'pos'
+      )
+    ```
+    
+  ```{r}
+  bb_tidy
+  ```
+
+* O R só mostra, por *default*, as $1000$ primeiras linhas de uma *tibble*.
+
+* Na verdade, o número de linhas da tabela original era
+
+    ```{r}
+    bb %>% nrow()
+    ```
+
+* O número de linhas, depois de `pivot_longer`, ficou:
+
+    ```{r}
+    bb_tidy %>% nrow()
+    ```
+
+* Existem linhas onde `pos` tem o valor `NA`. São resultado da organização original dos dados, onde o `NA` indicava que a música não estava no *top* $100$ naquela semana.
+
+* No novo formato, a ausência da linha com aquele número de semana já basta para indicar isto. Então, vamos eliminar as linhas onde `pos` é `NA`.
+
+* A função `filter` [mantém]{.hl} as linhas que [satisfazem]{.hl} a condição dada; por isso, a condição é "`pos` não é `NA`":
+
+    ```{r}
+    bb_tidy <- bb_tidy %>% 
+      filter(!is.na(pos))
+    ```
+    
+  ```{r}
+  bb_tidy
+
+  ```
+
+* O número de linhas ficou  
+
+    ```{r}
+    bb_tidy %>% nrow()
+    ```
+
+
+### Exercícios
+
+* Todas as semanas deste conjunto de dados são do ano $2000$?
+
+* Qual é o tipo do [primeiro]{.hl} argumento da função `filter()`?
+
+
+## Manipulando os dados
+
+### Criando novas colunas: `mutate`, `transmute`
+
+* O *data frame*^[Considere *data frame* como sinônimo de *tibble*. Na verdade, *tibbles* formam um superconjunto de *data frames*: todo *data frame* é uma *tibble*, mas nem toda *tibble* é um *data frame*.] `cars` tem dados (de $1920$!) sobre as distâncias de frenagem (em pés) de um carro viajando a diversas velocidades (em milhas por hora):
+
+  ```{r}
+  cars
+  ```
+
+* Vamos criar colunas novas com os valores convertidos para km/h e metros; além disso, uma coluna com a taxa de frenagem:
+
+  ```{r}
+  cars %>% 
+    mutate(
+      velocidade = speed * 1.6,
+      distancia = dist * .33,
+      taxa = velocidade / distancia
+    )
+  ```
+
+* Perceba que as colunas antigas continuam lá. [Se quiser manter apenas as colunas novas, use `transmute`]{.hl}:
+
+  ```{r}
+  cars %>% 
+    transmute(
+      velocidade = speed * 1.6,
+      distancia = dist * .33,
+      taxa = velocidade / distancia
+    )
+  ```
+
+* Ou use o argumento `.keep` de `mutate` para escolher com mais precisão. Veja a ajuda de `mutate`.
+
+
+### Selecionando colunas: `select`, `distinct`, `pull`
+
+* Vamos voltar à nossa *tibble* dos *top* $100$ da *Billboard*.
+
+* Para ver só a coluna de artistas:
+
+  ```{r}
+  bb_tidy %>% 
+    select(artista)
+  ```
+
+* Para eliminar as repetições:
+
+  ```{r}
+  bb_tidy %>% 
+    select(artista) %>% 
+    distinct()
+  ```
+
+* Para ver artistas e músicas:
+
+  ```{r}
+  bb_tidy %>% 
+    select(artista, musica) %>% 
+    distinct()
+  ```
+
+* Para especificar colunas [a não mostrar]{.hl}, use o sinal de menos "`-`":
+
+  ```{r}
+  bb_tidy %>% 
+    select(-c(entrou, semana, pos))
+  ```
+
+* Para [extrair uma coluna na forma de vetor]{.hl} (`unique` é uma função do R base, aplicável a vetores):
+
+  ```{r}
+  bb_tidy %>% 
+    pull(artista) %>% 
+    unique()
+  ```
+
+
+### Filtrando linhas: `filter`, `slice`
+
+* Apenas as músicas da Britney Spears:
+
+  ```{r}
+  bb_tidy %>% 
+    filter(artista == 'Spears, Britney')
+  ```
+
+* Apenas músicas que chegaram à posição $1$, sem mostrar a coluna `pos`:
+
+  ```{r}
+  bb_tidy %>% 
+    filter(pos == 1) %>% 
+    select(-pos)
+  ```
+
+* Apenas músicas que chegaram à posição $1$ em menos de $10$ semanas, mostrando apenas artista e música:
+
+  ```{r}
+  bb_tidy %>% 
+    filter(pos == 1, semana < 10) %>% 
+    distinct(artista, musica)
+  ```
+
+* As funções da família `slice` filtram linhas de diversas maneiras.
+
+* De acordo com seus índices (números de linha):
+
+  ```{r}
+  bb_tidy %>% 
+    slice(c(1, 1000, 5000))
+  ```
+  
+  ```{r}
+  bb_tidy %>% 
+    slice_head(n = 4)
+  ```
+  
+  ```{r}
+  bb_tidy %>% 
+    slice_tail(n = 4)
+  ```
+
+* De acordo com a [ordenação de uma coluna]{.hl} ou [de uma função das colunas]{.hl}:
+  
+  ```{r}
+  bb_tidy %>% 
+    slice_min(pos)
+  ```
+  
+  ```{r}
+  bb_tidy %>% 
+    slice_max(semana)
+  ```
+
+* Aleatoriamente, criando uma amostra:
+  
+  ```{r}
+  bb_tidy %>% 
+    slice_sample(n = 5)
+  ```
+  
+* Veja a ajuda de `slice` para saber mais sobre estas funções. Por exemplo: 
+
+  * `slice_min` e `slice_max` podem considerar ou não empates.
+  
+  * Você pode especificar uma proporção de linhas (usando `prop`) em vez da quantidade de linhas (`n`).
+  
+  * Você pode fazer amostragem com reposição, ou com probabilidades diferentes para cada linha.
+
+
+### Ordenando linhas: `arrange`
+
+* Por título, sem repetições:
+
+  ```{r}
+  bb_tidy %>% 
+    select(musica) %>% 
+    distinct() %>% 
+    arrange(musica)
+  ```
+
+* Por título, sem repetições, em ordem inversa:
+
+  ```{r}
+  bb_tidy %>% 
+    select(musica) %>% 
+    distinct() %>% 
+    arrange(desc(musica))
+  ```
+
+
+### Contando linhas: `count`
+
+* Quantas semanas cada artista ficou nos *top* $100$? Duas músicas na mesma semana contam como duas semanas.
+
+  ```{r}
+  bb_tidy %>% 
+    count(artista, sort = TRUE)
+  ```
+
+* Quantas semanas cada música ficou nos *top* $100$?
+
+  ```{r}
+  bb_tidy %>% 
+    count(musica, sort = TRUE)
+  ```
+
+* Se houve músicas com o mesmo nome, mas de artistas diferentes, [o código acima está errado]{.hl}. O certo é
+
+  ```{r}
+  bb_tidy %>% 
+    count(musica, artista, sort = TRUE)
+  ```
+
+  De fato, há uma diferença de uma linha.
+  
+  
+#### Exercício
+
+* Ache o título da música que tem dois artistas diferentes. 
+
+  **Sugestão:** conte por música e artista primeiro, depois só por música.
+
+
+### Agrupando linhas: `group_by` e `summarize`
+
+* Qual foi a melhor posição que cada artista alcançou?
+
+  ```{r}
+  bb_tidy %>% 
+    group_by(artista) %>% 
+    summarize(melhor = min(pos)) %>% 
+    arrange(melhor)
+  ```
+
+* Qual foi a melhor posição que cada música alcançou?
+
+  ```{r}
+  bb_tidy %>% 
+    group_by(artista, musica) %>% 
+    summarize(melhor = min(pos)) %>% 
+    arrange(melhor)
+  ```
+
+* Quando usamos `summarize`, só o agrupamento [mais interno]{.hl} é desfeito. Isto significa que [o resultado acima ainda está agrupado por `artista`]{.hl}.
+
+* Quantas semanas cada artista ficou na posição $1$? 
+
+  A função `n()` é uma maneira conveniente de [obter o número de linhas de um grupo]{.hl} (ou, se não houver agrupamento, de toda a *tibble*); mas [`n()` só pode ser chamada em certos contextos]{.hl}, como `summarise()` ou `mutate()`.
+
+  ```{r}
+  bb_tidy %>% 
+    filter(pos == 1) %>% 
+    group_by(artista) %>%
+    summarize(semanas = n()) %>% 
+    arrange(desc(semanas))
+  ```
+
+* Perceba que `count`, que vimos mais acima, faz agrupamentos do mesmo modo:
+
+  ```{r}
+  bb_tidy %>% 
+    filter(pos == 1) %>% 
+    count(artista, sort = TRUE)
+  ```
+
+* Uma pergunta diferente: quais são os artistas cujas músicas apareceram no *top* $100$ mais tempo depois do lançamento da música?
+
+  ```{r}
+  bb_tidy %>% 
+    group_by(artista) %>% 
+    summarize(semanas = max(semana)) %>% 
+    arrange(desc(semanas))
+  ```
+
+
+* Qual a posição média de cada música? Lembre-se de que eliminamos as linhas com `NA`; logo, [a média vai ser sobre a quantidade de semanas em que a música esteve na lista]{.hl}.
+
+    ```{r}
+    media1 <- bb_tidy %>% 
+      group_by(artista, musica) %>% 
+      summarize(media = mean(pos), .groups = 'drop') %>% 
+      arrange(media)
+    ```
+
+  ```{r}
+  media1
+  ```
+
+* E se quisermos [a média sobre o número de semanas desde a entrada da música até a última semana]{.hl} em que a música apareceu na lista?
+
+    ```{r}
+    media2 <- bb_tidy %>% 
+      group_by(artista, musica) %>% 
+      summarize(media = sum(pos)/max(semana), .groups = 'drop') %>% 
+      arrange(media)
+    ```
+    
+  ```{r}
+  media2
+  ```
+
+  As primeiras linhas são iguais, mas os resultados são diferentes:
+
+    ```{r}
+    identical(media1, media2)
+    ```
+
+## Exercícios
+
+1. Vamos trabalhar com um conjunto de dados sobre super-heróis.
+
+   Carregue o `tidyverse` com o comando
+
+    ```{r eval=FALSE}
+    library(tidyverse)
+    ```
+   
+   Execute o seguinte comando para ler os dados para uma *tibble*:
+
+    ```{r message=FALSE}
+    arquivo <- paste0(
+      'https://github.com/fnaufel/',
+      'probestr/raw/master/data/',
+      'heroes_information.csv'      
+    )
+    
+    herois_info <- read_csv(
+      arquivo,
+      na = c('', '-', 'NA')
+    ) %>% 
+      # Eliminar a primeira coluna (números de série)
+      select(-1) %>% 
+      # Renomear colunas restantes
+      rename(
+        nome = name,
+        sexo = Gender,
+        olhos = 'Eye color',
+        raça = Race,
+        cabelos = 'Hair color',
+        altura = Height,
+        editora = Publisher,
+        pele = 'Skin color',
+        lado = Alignment,
+        peso = Weight
+      )
+    ```
+
+1. Quantas linhas tem a *tibble*?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% nrow()
+   ```
+   
+   :::
+
+1. Existem heróis que aparecem em mais de uma linha?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     count(nome)
+   ```
+   
+   Precisaríamos [examinar a tabela acima]{.hl}, procurando linhas com $n > 1$. 
+   
+   [Vamos pedir para o R fazer isto:]{.hl}
+   
+   ```{r}
+   repetidos <- herois_info %>% 
+     count(nome) %>% 
+     filter(n > 1)
+   
+   repetidos
+   ```
+   
+   Vamos mostrar mais dados destes heróis:
+   
+   ```{r}
+   herois_info %>% 
+     filter(nome %in% repetidos$nome) %>% 
+     select(nome, editora, raça, everything())
+   ```
+   
+   Em alguns casos, são editoras diferentes (como para Angel e Atlas). 
+   
+   Em alguns casos, o mesmo herói aparece com várias características.
+   
+   São $`r nrow(repetidos)`$ heróis que aparecem mais de uma vez. É um número pequeno o bastante para corrigirmos a situação manualmente. 
+   
+   Como não tenho conhecimento suficiente sobre heróis para fazer isso, vou ignorar esta confusão e usar os dados como estão.
+   
+   :::
+
+1. Quantas editoras diferentes existem na *tibble*? Liste-as em ordem decrescente de quantidade de heróis.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+     
+   ```{r}
+   herois_info %>% count(editora, sort = TRUE)
+   ```
+     
+   :::
+
+1. Vamos colocar todas as editores menores em uma classe só. 
+
+   Na coluna `editora`, substitua 
+
+   * 'Marvel Comics' por 'Marvel', 
+   * 'DC Comics' por 'DC', e 
+   * todas as outras editoras pelo termo 'Outras'.
+   
+   **Dica:** use a função `case_when()`, do `tidyverse`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info <- herois_info %>% 
+     mutate(
+       editora = case_when(
+         editora == 'Marvel Comics' ~ 'Marvel',
+         editora == 'DC Comics' ~ 'DC',
+         TRUE ~ 'Outras'
+       )
+   )
+   ```
+   
+   :::
+
+1. Confira, novamente, a quantidade de valores diferentes na coluna `editora`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+     
+   ```{r}
+   herois_info %>% count(editora, sort = TRUE)
+   ```
+     
+   :::
+
+1. Existem heróis sem informação de editora. Quantos? Quais são?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% filter(is.na(editora))
+   ```
+   
+   Na verdade, a chamada a `case_when()`, da maneira como fiz, já substituiu os `NA` por 'Outras'. Entenda por quê.
+     
+   :::
+
+1. Altere novamente a coluna `editora`, colocando o valor 'Outras' para os heróis sem informação de editora. Use a função `if_else()` (com *underscore*, não a função `ifelse`).
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   Se, no seu caso, ainda houver valores `NA` em `editora`, basta fazer o seguinte:
+   
+   ```{r eval=FALSE}
+   herois_info <- herois_info %>% 
+     mutate(
+       editora = if_else(is.na(editora), 'Outras', editora)
+     )
+   ```
+   
+   :::
+
+
+1. Confira, mais uma vez, a quantidade de valores diferentes na coluna `editora`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+     
+   ```{r}
+   herois_info %>% count(editora, sort = TRUE)
+   ```
+     
+   :::
+
+1. Existem heróis sem informação de sexo? Quantos? Para estes heróis, coloque o valor 'Desconhecido' na coluna `sexo`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% filter(is.na(sexo))
+   ```
+   
+   ```{r}
+   herois_info <-  herois_info %>% 
+     mutate(
+       sexo = if_else(
+         is.na(sexo),
+         'Desconhecido',
+         sexo
+       )
+     )
+   ```
+
+   Conferindo:
+   
+   ```{r}
+   herois_info %>% filter(is.na(sexo))
+   ```
+
+   :::
+
+1. Qual a altura mínima? Qual a altura máxima? Substitua as alturas negativas por `NA`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   Podemos extrair o vetor de alturas com `pull` e usar a função `summary` do R    base, que retorna um vetor:
+   
+   ```{r}
+   herois_info %>% 
+     pull(altura) %>% 
+     summary()
+   ```
+   
+   Ou podemos usar `summarize`, do `tidyverse`, que retorna uma *tibble*:
+   
+   ```{r}
+   herois_info %>% 
+     summarize(
+       minimo = min(altura),
+       maximo = max(altura)
+     )
+   ```
+   
+   Quantas alturas negativas existem?
+   
+   ```{r}
+   herois_info %>% count(altura < 0)
+   ```
+   
+   Substituindo as alturas negativas por `NA`:
+   
+   ```{r}
+   herois_info <- herois_info %>% 
+     mutate(
+       altura = if_else(
+         altura < 0,
+         NA_real_,
+         altura
+       )
+     )
+   ```
+   
+   Como `if_else` (com *underscore*) é exigente, precisamos passar `NA_real_` em vez de `NA`.
+   
+   Situação atual:
+
+   ```{r}
+   herois_info %>% 
+     pull(altura) %>% 
+     summary()
+   ```
+   
+   :::
+
+1. Qual o peso mínimo? Qual o peso máximo? Substitua os pesos negativos por `NA`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   Como fizemos com as alturas:
+   
+   ```{r}
+   herois_info %>% 
+     pull(peso) %>% 
+     summary()
+   ```
+   
+   Observe que existem valores `NA` em peso.
+   
+   ```{r}
+   herois_info %>% 
+     summarize(
+       minimo = min(peso),
+       maximo = max(peso)
+     )
+   ```
+   
+   Para ignorar os valores `NA` nas funções `min()` e `max()`:
+   
+   ```{r}
+   herois_info %>% 
+     summarize(
+       minimo = min(peso, na.rm = TRUE),
+       maximo = max(peso, na.rm = TRUE)
+     )
+   ```
+   
+   Quantos pesos negativos existem?
+   
+   ```{r}
+   herois_info %>% count(peso < 0)
+   ```
+   
+   Substituindo por `NA`:
+   
+   ```{r}
+   herois_info <- herois_info %>% 
+     mutate(
+       peso = if_else(
+         peso < 0,
+         NA_real_,
+         peso
+       )
+     )
+   ```
+   
+   Como `if_else` (com *underscore*) é exigente, precisamos passar `NA_real_`    em vez de `NA`.
+   
+   Situação atual:
+
+   ```{r}
+   herois_info %>% 
+     pull(peso) %>% 
+     summary()
+   ```
+   
+   :::
+
+1. Qual é o peso médio de todos os heróis? Ignore os valores `NA`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+      
+   ```{r}
+   herois_info %>% pull(peso) %>% mean(na.rm = TRUE)
+   ```
+    
+   :::
+
+1. Qual é a altura média de todos os heróis? Ignore os valores `NA`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+      
+   ```{r}
+   herois_info %>% pull(altura) %>% mean(na.rm = TRUE)
+   ```
+    
+   :::
+
+1. Qual é a altura média dos heróis, por editora? Ignore os valores `NA`.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     group_by(editora) %>% 
+     summarize(média = mean(altura, na.rm = TRUE))
+   ```
+   
+   :::
+
+1. Quais são os $3$ heróis mais altos de cada sexo?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     group_by(sexo) %>% 
+     slice_max(altura, n = 3) %>% 
+     select(nome, sexo, altura)
+   ```
+   
+   Como houve empates, foram mostrados $4$ de sexo desconhecido e $4$ do sexo feminino.
+   
+   Leia a documentação da função `slice_max` para descobrir como mostrar    exatamente $n$ de cada grupo. (Dica: "empate", em inglês, é "*tie*".)
+   
+   :::
+
+1. Quais são as $3$ cores de olhos mais comuns para cada sexo?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     group_by(sexo) %>% 
+     count(olhos, sort = TRUE) %>% 
+     slice_head(n = 3)
+   ```
+   
+   :::
+
+1. Liste, por editora, as quantidades de heróis do bem, do mal, e neutros.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     group_by(editora) %>% 
+     count(lado)
+   ```
+   
+   ou
+   
+   ```{r}
+   herois_info %>% 
+     group_by(editora, lado) %>% 
+     summarize(n())
+   ```
+   
+   :::
+
+1. Quantas raças diferentes existem?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     pull(raça) %>% 
+     n_distinct()
+   ```
+   
+   ou (mostrando os nomes das raças e as quantidades de heróis por raça)
+
+   ```{r}
+   herois_info %>% 
+     count(raça)
+   ```
+   
+   ou 
+   
+   ```{r}
+   herois_info %>% 
+     group_by(raça) %>% 
+     summarise(n())
+   ```
+   
+   :::
+
+1. Qual a quantidade de raças diferentes de cada editora?
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   ```{r}
+   herois_info %>% 
+     group_by(editora) %>% 
+     summarise(n = n_distinct(raça))
+   ```
+   
+   :::
+
+1. **DESAFIO:** Liste as raças que só pertencem a uma única editora.
+
+   Existem várias maneiras de fazer isto. Experimente várias, até achar uma que seja mais elegante.
+
+   ::: {.callout-tip title="Resposta" collapse="true"}
+   
+   * Maneira simples, usando contagem:
+   
+     ```{r}
+     herois_info %>% 
+       group_by(raça) %>% 
+       summarise(n_ed = n_distinct(editora)) %>% 
+       filter(n_ed == 1)
+     ```
+   
+   * Maneira repetitiva, manual:
+   
+     ```{r}
+     racas_marvel <- herois_info %>% 
+       filter(editora == 'Marvel') %>% 
+       select(raça) %>% 
+       unique()
+     
+     racas_dc <- herois_info %>% 
+       filter(editora == 'DC') %>% 
+       select(raça) %>% 
+       unique()
+     
+     racas_outras <- herois_info %>% 
+       filter(editora == 'Outras') %>% 
+       select(raça) %>% 
+       unique()
+     ```
+     
+     Exclusivas da Marvel:
+     
+     ```{r}
+     racas_marvel %>% 
+       setdiff(racas_dc) %>% 
+       setdiff(racas_outras) %>% 
+       arrange(raça)
+     ```
+   
+     Exclusivas da DC:
+   
+     ```{r}
+     racas_dc %>% 
+       setdiff(racas_marvel) %>% 
+       setdiff(racas_outras) %>% 
+       arrange(raça)
+     ```
+     
+     Exclusivas de outras editoras:
+   
+     ```{r}
+     racas_outras %>% 
+       setdiff(racas_dc) %>% 
+       setdiff(racas_marvel) %>% 
+       arrange(raça)
+     ```
+   
+   * Mesma maneira, mas usando uma função:
+     
+     ```{r}
+     racas_exclusivas <- function(x) {
+     
+       esta_editora <- herois_info %>% 
+         filter(editora == x) %>% 
+         select(raça) %>% 
+         unique()
+       
+       outras_editoras <- herois_info %>% 
+         filter(editora != x) %>% 
+         select(raça) %>% 
+         unique()
+       
+       esta_editora %>%
+         setdiff(outras_editoras) %>% 
+         arrange(raça)
+     }
+     ```
+     
+     ```{r}
+     racas_exclusivas('Marvel')
+     ```
+     
+     ```{r}
+     racas_exclusivas('DC')
+     ```
+     
+     ```{r}
+     racas_exclusivas('Outras')
+     ```
+   
+   * Maneira complicada, usando `join`:
+   
+     ```{r}
+     herois_info %>% 
+       select(raça, editora) %>% 
+       group_by(raça) %>% 
+       summarise(n_editoras = n_distinct(editora)) %>% 
+       filter(n_editoras == 1) %>% 
+       inner_join(herois_info, by = 'raça') %>% 
+       select(raça, editora) %>% 
+       unique() %>% 
+       arrange(editora)
+     ```
+   
+   :::
+
+
+## Examinando *tibbles* intermediárias
+
+* [O pacote `ViewPipeSteps`](https://github.com/daranzolin/ViewPipeSteps) serve para exibir (no console ou em *tabs* no RStudio) as *tibbles* que são resultados de cada passo em uma sequência de comandos montada com o *pipe* `%>%`.
+
+* Instale o pacote com o comando
+
+  ```{r eval=FALSE}
+  install.packages("ViewPipeSteps")
+  ```
+
+* Carregue o pacote com
+
+  ```{r}
+  library(ViewPipeSteps)
+  ```
+
+* Para exibir, no console, as *tibbles* intermediárias, acrescente `print_pipe_steps(all = TRUE)` após o último passo do *pipe*:
+
+    ```{r}
+    resultado <- bb_tidy %>% 
+      group_by(artista, musica) %>% 
+      summarize(media = sum(pos)/max(semana), .groups = 'drop') %>% 
+      arrange(media) %>% 
+      print_pipe_steps(all = TRUE)
+    ```
+
+* Para exibir as *tibbles* intermediárias em *tabs* do RStudio (como com a função `View()`), você pode usar o *addin* `viewPipeChain`, que também faz parte deste pacote. Veja o exemplo [no site do pacote](https://github.com/daranzolin/ViewPipeSteps).

@@ -1,36 +1,13 @@
+{{< include _math.qmd >}}
 
-
-
-
-
-
-
----
-# See https://github.com/fnaufel/bookdowntemplate01 for more information.
-
-knit: "bookdown::render_book"
-
-title: "Probabilidade e Estatística com R"
-description: "Probabilidade e Estatística com R"
-author: "Fernando Náufel"
-date: "(versão de `r format(Sys.Date(), '%d/%m/%Y')`)"
-lang: 'pt-br'
-
-cover-image: "images/640px-Nightingale-mortality.jpg"
-
-documentclass: "report"
-classoption: '11pt'
-geometry: 'margin=1in'
-bibliography: ['bibliography.bib', 'packages.bib']
-link-citations: yes
----
+```{r echo=FALSE, include=FALSE}
+source('_setup.R')
+```
 
 
 # Apresentação {- #apresentacao}
 
-::: {.rmdcaution latex=1}
-
-**Atenção**
+::: {.callout-caution}
 
 Este material ainda está em construção.
 
@@ -39,24 +16,8 @@ Pode haver mudanças a qualquer momento.
 Verifique, no rodapé da página *web* ou na capa do arquivo pdf, a data desta versão.
 :::
 
-```{r echo=FALSE, results='asis'}
-if (is_html_output()) {
-  cat('<div style=\'height: 100px\'></div>')
-} else {
-  cat('\\newpage\n')
-}
-```
-
 
 ![](images/640px-Nightingale-mortality.jpg){.center}
-
-```{r echo=FALSE, results='asis'}
-if (is_html_output()) {
-  cat('<div style=\'height: 100px\'></div>')
-} else {
-  cat('\\vspace{2cm}\n')
-}
-```
 
 
 Este livro/*site* foi iniciado em 2020, durante a pandemia de COVID-19, quando a Universidade Federal Fluminense (UFF) funcionou em regime de ensino remoto durante mais de um ano. 
@@ -77,7 +38,7 @@ Para tirar o máximo proveito deste material, você deve fazer o seguinte:
 
 1. Fazer os exercícios. Ao longo do tempo, acrescentarei *links* para vídeos explicando as soluções.
 
-::: {.rmdimportant latex=1}
+::: {.callout-important}
 
 [Se você estiver lendo este material na *web*, você pode clicar nos comandos e funções que aparecem nos blocos de código em R]{.hl} para abrir páginas da documentação sobre eles.
 
