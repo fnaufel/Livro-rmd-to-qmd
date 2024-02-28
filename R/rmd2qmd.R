@@ -16,9 +16,10 @@ rmd2qmd <- function(arquivo) {
     ler() %>% 
     deletar_vazias_inicio() %>% 
     deletar_yaml() %>% 
-    incluir_math() %>% 
+    incluir_math_e_setup() %>% 
     traduzir_callouts() %>% 
     traduzir_respostas() %>% 
+    indentar_chunks() %>% 
     gravar(saida)
 
   message('Gravando ', saida, '...')
@@ -66,9 +67,16 @@ deletar_yaml <- function(rmd) {
 }
 
 # Include math
-incluir_math <- function(rmd) {
+incluir_math_e_setup <- function(rmd) {
   
-  incluir <- c('{{< include _math.qmd >}}', '')
+  incluir <- c(
+    '{{< include _math.qmd >}}', 
+    '',
+    '```{r echo=FALSE, include=FALSE}',
+    'source(\'_setup.R\')',
+    '```',
+    ''
+  )
   c(incluir, rmd)
   
 }
@@ -101,6 +109,102 @@ traduzir_respostas <- function(rmd) {
   
   rmd
       
+}
+
+# Indentar chunks
+indentar_chunks <- function(rmd) {
+  
+  n_linhas <- length(rmd)
+  indent_atual <- 0
+  
+  i <-  1
+  while (i <= n_linhas) {
+    
+    linha <- rmd[i]
+    
+    # Começo de lista ordenada
+    if (inicia_lista_ordenada(linha)) {
+      indent_atual <- indent_atual + 3
+    }
+    # Começo de lista não ordenada
+    if (inicia_lista_nao_ordenada(linha)) {
+      indent_atual <- indent_atual + 2
+    }
+    # Fim de lista de qquer tipo: restaurar indent_atual
+    if (termina_lista(linha, indent_atual)) {
+      indent_atual <- calcular_indent(linha)
+    }
+    # Início de chunk: processar
+    if (inicia_chunk(linha)) {
+      indentar_chunk(rmd, i, indent_atual)
+    }
+    
+    i <- i + 1
+    
+  }
+  
+  rmd
+  
+}
+
+inicia_lista_ordenada <- function(linha) {
+  # Um dígito ou uma letra minúscula antes do ponto
+  str_detect(linha, '^\\s*[0-9a-z]\\. ')
+}
+    
+inicia_lista_nao_ordenada <- function(linha) {
+  # Provavelmente pode dar falso positivo com fórmula LaTeX
+  str_detect(linha, '^\\s*\\* ')
+}
+
+termina_lista <- function(linha, indent_atual) {
+  
+  # Ignorar linhas vazias
+  if (str_detect(linha, '^[[:blank:]]*')) {
+    return(FALSE)
+  }
+  
+  # Se indent diminuiu, lista terminou
+  indent_linha <- calcular_indent(linha)
+  return(indent_linha < indent_atual) 
+  
+}
+
+# Só retorna valor correto com espaços, não tabs
+calcular_indent <- function(linha) {
+  
+  espacos <- str_extract(linha, '^(\\s*)[^ ]', group = 1)
+  nchar(espacos)
+  
+}
+
+inicia_chunk <- function(linha) {
+  str_detect(linha, '^\\s*```\\{.*\\}\\s*$')
+}
+
+termina_chunk <- function(linha) {
+  str_detect(linha, '^\\s*```\\s*$')
+}
+
+indentar_chunk <- function(rmd, i, indent_atual) {
+  
+  n_linhas <- length(rmd)
+  
+  while (i <= n_linhas) {
+    
+    linha <- rmd[i]
+    nova_linha <- paste0(
+      paste0(rep(' ', indent_atual)),
+      str_trim(linha, 'left')
+    )
+    rmd[i] <- nova_linha
+    
+    if (termina_chunk(linha)) {
+      break
+    }
+    
+  }
+  
 }
 
 # Gravar

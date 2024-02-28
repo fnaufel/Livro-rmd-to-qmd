@@ -3,6 +3,20 @@
 source('rmd2qmd.R')
 ```
 
+# Chunks
+
+
+```{r}
+rmd <- ler('../tidyverse.Rmd')
+indentar_chunks(rmd) %>% 
+  gravar('teste.qmd')
+```
+
+
+
+
+# Misc
+
 ```{r}
 cat(
   rmd2qmd('../index.Rmd'), sep = '\n'
@@ -18,4 +32,3 @@ rmd2qmd('../tidyverse.Rmd')
 rmd2qmd('../index.Rmd')
 rmd2qmd('../tidyverse.Rmd')
 ```
-
