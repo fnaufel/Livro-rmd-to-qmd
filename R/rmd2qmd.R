@@ -1,5 +1,6 @@
 library(stringr)
 library(magrittr)
+library(zeallot)
 
 # Traduzir
 rmd2qmd <- function(arquivo) {
@@ -114,6 +115,8 @@ traduzir_respostas <- function(rmd) {
 # Indentar chunks
 indentar_chunks <- function(rmd) {
   
+  browser()
+  
   n_linhas <- length(rmd)
   indent_atual <- 0
   
@@ -122,21 +125,14 @@ indentar_chunks <- function(rmd) {
     
     linha <- rmd[i]
     
-    # Começo de lista ordenada
-    if (inicia_lista_ordenada(linha)) {
-      indent_atual <- indent_atual + 3
-    }
-    # Começo de lista não ordenada
-    if (inicia_lista_nao_ordenada(linha)) {
-      indent_atual <- indent_atual + 2
-    }
-    # Fim de lista de qquer tipo: restaurar indent_atual
-    if (termina_lista(linha, indent_atual)) {
-      indent_atual <- calcular_indent(linha)
-    }
     # Início de chunk: processar
     if (inicia_chunk(linha)) {
-      indentar_chunk(rmd, i, indent_atual)
+      # indentar_chunk() retorna número da última linha do chunk (novo_i)
+      c(rmd, novo_i) %<-% indentar_chunk(rmd, i, indent_atual)
+      i <- novo_i
+    } else {
+      # Alterar indent atual, se necessário
+      indent_atual <- calcular_indent(linha, indent_atual)
     }
     
     i <- i + 1
@@ -171,7 +167,11 @@ termina_lista <- function(linha, indent_atual) {
 }
 
 # Só retorna valor correto com espaços, não tabs
-calcular_indent <- function(linha) {
+# TODO: alterar: agora deve verificar o tipo da linha atual
+# (item de lista, linha vazia, ...)
+# Se linha vazia, retorna indent_atual
+# Garantia: linha não é início de chunk
+calcular_indent <- function(linha, indent_atual) {
   
   espacos <- str_extract(linha, '^(\\s*)[^ ]', group = 1)
   nchar(espacos)
@@ -194,7 +194,7 @@ indentar_chunk <- function(rmd, i, indent_atual) {
     
     linha <- rmd[i]
     nova_linha <- paste0(
-      paste0(rep(' ', indent_atual)),
+      paste0(rep(' ', indent_atual, collapse = '')),
       str_trim(linha, 'left')
     )
     rmd[i] <- nova_linha
@@ -204,6 +204,8 @@ indentar_chunk <- function(rmd, i, indent_atual) {
     }
     
   }
+  
+  c(rmd, i)
   
 }
 

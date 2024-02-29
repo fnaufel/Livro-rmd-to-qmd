@@ -8,14 +8,35 @@ source('rmd2qmd.R')
 
 ```{r}
 rmd <- ler('../tidyverse.Rmd')
-indentar_chunks(rmd) %>% 
-  gravar('teste.qmd')
+```
+
+```{r}
+df <- rmd[13:29]
+df
+```
+
+```{r}
+indentar_chunks(df)
 ```
 
 
 
-
 # Misc
+
+```{r}
+library(zeallot)
+f <- function() {
+  
+  c(1, 2)
+  
+}
+
+c(x, y) %<-% f()
+x
+y
+```
+
+
 
 ```{r}
 cat(
