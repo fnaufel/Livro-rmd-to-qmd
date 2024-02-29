@@ -5,9 +5,12 @@ source('_setup.R')
 ```
 
 
+
 # Apresentação {- #apresentacao}
 
 ::: {.callout-caution}
+
+**Atenção**
 
 Este material ainda está em construção.
 
@@ -16,8 +19,24 @@ Pode haver mudanças a qualquer momento.
 Verifique, no rodapé da página *web* ou na capa do arquivo pdf, a data desta versão.
 :::
 
+```{r echo=FALSE, results='asis'}
+if (is_html_output()) {
+  cat('<div style=\'height: 100px\'></div>')
+} else {
+  cat('\\newpage\n')
+}
+```
+
 
 ![](images/640px-Nightingale-mortality.jpg){.center}
+
+```{r echo=FALSE, results='asis'}
+if (is_html_output()) {
+  cat('<div style=\'height: 100px\'></div>')
+} else {
+  cat('\\vspace{2cm}\n')
+}
+```
 
 
 Este livro/*site* foi iniciado em 2020, durante a pandemia de COVID-19, quando a Universidade Federal Fluminense (UFF) funcionou em regime de ensino remoto durante mais de um ano. 

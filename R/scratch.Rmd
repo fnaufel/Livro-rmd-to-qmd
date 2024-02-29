@@ -3,6 +3,14 @@
 source('rmd2qmd.R')
 ```
 
+# Teste arquivo inteiro
+
+```{r}
+rmd2qmd('../tidyverse.Rmd')
+```
+
+
+
 # Chunks
 
 

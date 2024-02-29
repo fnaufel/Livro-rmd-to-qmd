@@ -115,8 +115,6 @@ traduzir_respostas <- function(rmd) {
 # Indentar chunks
 indentar_chunks <- function(rmd) {
   
-  browser()
-  
   n_linhas <- length(rmd)
   indent_atual <- 0
   
@@ -143,38 +141,37 @@ indentar_chunks <- function(rmd) {
   
 }
 
-inicia_lista_ordenada <- function(linha) {
+item_lista_ordenada <- function(linha) {
   # Um dígito ou uma letra minúscula antes do ponto
   str_detect(linha, '^\\s*[0-9a-z]\\. ')
 }
     
-inicia_lista_nao_ordenada <- function(linha) {
+item_lista_nao_ordenada <- function(linha) {
   # Provavelmente pode dar falso positivo com fórmula LaTeX
   str_detect(linha, '^\\s*\\* ')
 }
 
-termina_lista <- function(linha, indent_atual) {
-  
-  # Ignorar linhas vazias
-  if (str_detect(linha, '^[[:blank:]]*')) {
-    return(FALSE)
-  }
-  
-  # Se indent diminuiu, lista terminou
-  indent_linha <- calcular_indent(linha)
-  return(indent_linha < indent_atual) 
-  
-}
-
 # Só retorna valor correto com espaços, não tabs
-# TODO: alterar: agora deve verificar o tipo da linha atual
-# (item de lista, linha vazia, ...)
-# Se linha vazia, retorna indent_atual
-# Garantia: linha não é início de chunk
+# Garantia: linha não é parte de chunk
 calcular_indent <- function(linha, indent_atual) {
   
+  # Linha vazia
+  if (str_detect(linha, '^[[:blank:]]*$')) {
+    return(indent_atual)
+  }
+  
+  # Quantos espaços antes do primeiro char?
   espacos <- str_extract(linha, '^(\\s*)[^ ]', group = 1)
-  nchar(espacos)
+  
+  if (item_lista_ordenada(linha)) {
+    return(nchar(espacos) + 3)
+  }
+
+  if (item_lista_nao_ordenada(linha)) {
+    return(nchar(espacos) + 2)
+  }
+  
+  return(nchar(espacos))
   
 }
 
@@ -188,16 +185,21 @@ termina_chunk <- function(linha) {
 
 indentar_chunk <- function(rmd, i, indent_atual) {
   
-  n_linhas <- length(rmd)
+  # browser()
   
+  # Indent da primeira linha do chunk:
+  indent_original <- calcular_indent(rmd[i])
+  
+  n_linhas <- length(rmd)
   while (i <= n_linhas) {
     
     linha <- rmd[i]
     nova_linha <- paste0(
-      paste0(rep(' ', indent_atual, collapse = '')),
-      str_trim(linha, 'left')
+      paste0(rep(' ', indent_atual), collapse = ''),
+      str_sub(linha, indent_original + 1)  # Remover indent original
     )
     rmd[i] <- nova_linha
+    i <- i + 1
     
     if (termina_chunk(linha)) {
       break
@@ -205,7 +207,7 @@ indentar_chunk <- function(rmd, i, indent_atual) {
     
   }
   
-  c(rmd, i)
+  list(rmd, i)
   
 }
 
